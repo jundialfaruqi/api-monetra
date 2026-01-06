@@ -29,15 +29,28 @@
                     <p class="text-base-content/60 text-sm mt-1">Enter your credentials to access your account</p>
                 </div>
 
-                <form action="{{ url('/dashboard') }}" method="GET">
+                @if ($errors->any())
+                    <div class="alert alert-error mb-4">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="size-5 shrink-0" viewBox="0 0 24 24"
+                            fill="none" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
+                                d="M12 9v4m0 4h.01M10.34 2.63a2 2 0 0 1 3.32 0l8.54 13.66A2 2 0 0 1 20.54 19H3.46a2 2 0 0 1-1.66-2.71l8.54-13.66z" />
+                        </svg>
+                        <span class="text-sm">{{ $errors->first() }}</span>
+                    </div>
+                @endif
+
+                <form action="{{ route('login.perform') }}" method="POST" class="space-y-2">
+                    @csrf
                     <!-- Email -->
                     <div class="form-control mb-4">
                         <label class="label mb-2">
                             <span class="label-text font-medium">Email Address</span>
                         </label>
                         <div class="relative">
-                            <input type="email" placeholder="name@example.com"
-                                class="input input-bordered w-full pl-10 rounded-lg h-11" required />
+                            <input type="email" name="email" value="{{ old('email') }}"
+                                placeholder="name@example.com" class="input input-bordered w-full pl-10 rounded-lg h-11"
+                                required />
                             <span
                                 class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none text-base-content/60">
                                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"
@@ -49,6 +62,9 @@
                                 </svg>
                             </span>
                         </div>
+                        @error('email')
+                            <span class="text-error text-xs mt-1">{{ $message }}</span>
+                        @enderror
                     </div>
 
                     <!-- Password -->
@@ -57,7 +73,7 @@
                             <span class="label-text font-medium">Password</span>
                         </label>
                         <div class="relative">
-                            <input type="password" placeholder="••••••••"
+                            <input type="password" name="password" placeholder="••••••••"
                                 class="input input-bordered w-full pl-10 rounded-lg h-11" required />
                             <span
                                 class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none text-base-content/60">
@@ -69,6 +85,9 @@
                                 </svg>
                             </span>
                         </div>
+                        @error('password')
+                            <span class="text-error text-xs mt-1">{{ $message }}</span>
+                        @enderror
                         <label class="label justify-end mt-2">
                             <a href="#" class="label-text-alt link link-hover text-primary font-medium">
                                 Forgot password?

@@ -19,7 +19,7 @@
                 <li class="menu-title text-xs font-semibold opacity-50 uppercase mb-1">Overview</li>
 
                 <li>
-                    <a>
+                    <a href="{{ route('dashboard.index') }}">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                             stroke="currentColor" class="w-5 h-5">
                             <path stroke-linecap="round" stroke-linejoin="round"
@@ -167,20 +167,56 @@
             <div class="flex items-center gap-3">
                 <div class="avatar">
                     <div class="w-10 rounded-full">
-                        <img src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp" />
+                        @if (auth()->user()->photo)
+                            <img src="{{ auth()->user()->photo }}" />
+                        @else
+                            <img src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp" />
+                        @endif
                     </div>
                 </div>
                 <div class="flex-1 min-w-0">
-                    <p class="text-sm font-bold truncate">Denish N</p>
-                    <p class="text-xs text-base-content/60 truncate">@withden</p>
+                    <p class="text-sm font-bold truncate">
+                        {{ auth()->user()->name }}
+                    </p>
+                    <p class="text-xs text-base-content/60 truncate">
+                        {{ auth()->user()->email }}
+                    </p>
                 </div>
-                <button class="btn btn-ghost btn-xs btn-circle">
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-                        stroke="currentColor" class="w-5 h-5">
-                        <path stroke-linecap="round" stroke-linejoin="round"
-                            d="M8.25 15L12 18.75 15.75 15m-7.5-6L12 5.25 15.75 9" />
-                    </svg>
-                </button>
+                <div class="dropdown dropdown-end dropdown-top">
+                    <label tabindex="0" class="btn btn-ghost btn-xs btn-circle">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                            stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                d="M8.25 15L12 18.75 15.75 15m-7.5-6L12 5.25 15.75 9" />
+                        </svg>
+                    </label>
+                    <ul tabindex="0"
+                        class="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-40 border border-base-200">
+                        <li>
+                            <a class="cursor-default">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                    stroke-width="1.5" stroke="currentColor" class="w-4 h-4">
+                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                        d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z" />
+                                </svg>
+                                Profile
+                            </a>
+                        </li>
+                        <li>
+                            <form method="POST" action="{{ route('logout') }}">
+                                @csrf
+                                <button type="submit" class="flex items-center gap-2 cursor-pointer">
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                        stroke-width="1.5" stroke="currentColor" class="size-4">
+                                        <path stroke-linecap="round" stroke-linejoin="round"
+                                            d="M5.636 5.636a9 9 0 1 0 12.728 0M12 3v9" />
+                                    </svg>
+                                    Logout
+                                </button>
+                            </form>
+                        </li>
+                    </ul>
+                </div>
             </div>
         </div>
     </aside>
