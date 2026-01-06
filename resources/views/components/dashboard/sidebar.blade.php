@@ -19,7 +19,8 @@
                 <li class="menu-title text-xs font-semibold opacity-50 uppercase mb-1">Overview</li>
 
                 <li>
-                    <a href="{{ route('dashboard.index') }}">
+                    <a href="{{ route('dashboard.index') }}"
+                        class="{{ request()->routeIs('dashboard.*') ? 'active bg-base-200 text-base-content font-medium' : '' }}">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                             stroke="currentColor" class="w-5 h-5">
                             <path stroke-linecap="round" stroke-linejoin="round"
@@ -85,7 +86,7 @@
                 <li class="menu-title text-xs font-semibold opacity-50 uppercase mt-4 mb-1">Extras</li>
 
                 <li>
-                    <details open>
+                    <details {{ request()->routeIs('users.*') ? 'open' : '' }}>
                         <summary class="group">
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                 stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
@@ -97,7 +98,7 @@
                         <ul>
                             <li>
                                 <a href="{{ route('users.index') }}"
-                                    class="active bg-base-200 text-base-content font-medium">Users</a>
+                                    class="{{ request()->routeIs('users.*') ? 'active bg-base-200 text-base-content font-medium' : '' }}">Users</a>
                             </li>
                             <li><a>User Role</a></li>
                             <li><a>Permissions</a></li>

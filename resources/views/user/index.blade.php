@@ -14,13 +14,143 @@
         </div>
     </div>
 
+    <div class="mb-6">
+        <div class="rounded-xl bg-linear-to-r from-primary to-secondary text-primary-content p-5">
+            <div class="flex flex-col gap-3 md:flex-row md:items-center md:justify-between">
+                <div>
+                    <div class="text-lg font-bold">Data User</div>
+                    <div class="text-sm opacity-80">Monitoring data pengguna dan status</div>
+                </div>
+                <div class="flex flex-wrap gap-4 md:gap-0 mt-1 md:mt-0">
+                    <div class="text-center">
+                        <div class="text-2xl font-bold">{{ $stats['total'] ?? 0 }}</div>
+                        <div class="text-xs">Total User</div>
+                    </div>
+                    <div class="text-center md:pl-6 md:ml-6 md:border-l md:border-dotted md:border-white/40">
+                        <div class="text-2xl font-bold">{{ $stats['active'] ?? 0 }}</div>
+                        <div class="text-xs">Aktif</div>
+                    </div>
+                    <div class="text-center md:pl-6 md:ml-6 md:border-l md:border-dotted md:border-white/40">
+                        <div class="text-2xl font-bold">{{ $stats['pending'] ?? 0 }}</div>
+                        <div class="text-xs">Pending</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mt-4">
+            <div class="card bg-base-100 shadow-sm">
+                <div class="card-body p-5">
+                    <div class="flex justify-between items-start">
+                        <div>
+                            <h2 class="card-title text-sm text-base-content/60 font-medium">Total Pengguna</h2>
+                            <div class="flex items-center gap-2 mt-2">
+                                <span class="text-2xl font-bold">{{ $stats['total'] ?? 0 }}</span>
+                                <span class="text-xs text-base-content/50">Akun terdaftar</span>
+                            </div>
+                        </div>
+                        <div class="p-2 bg-base-200 rounded-lg">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                                <path stroke-linecap="round" stroke-linejoin="round"
+                                    d="M12 14c3.866 0 7 1.343 7 3v1H5v-1c0-1.657 3.134-3 7-3z" />
+                                <path stroke-linecap="round" stroke-linejoin="round"
+                                    d="M12 12a4 4 0 100-8 4 4 0 000 8z" />
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card bg-base-100 shadow-sm">
+                <div class="card-body p-5">
+                    <div class="flex justify-between items-start">
+                        <div>
+                            <h2 class="card-title text-sm text-base-content/60 font-medium">Pengguna Disetujui</h2>
+                            <div class="flex items-center gap-2 mt-2">
+                                <span class="text-2xl font-bold">{{ $stats['active'] ?? 0 }}</span>
+                                <span class="text-xs text-success">Status aktif</span>
+                            </div>
+                        </div>
+                        <div class="p-2 bg-base-200 rounded-lg">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
+                                stroke="currentColor" class="w-6 h-6">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
+                                    d="M9 12l2 2 4-4" />
+                                <circle cx="12" cy="12" r="9" stroke-width="1.5" />
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card bg-base-100 shadow-sm">
+                <div class="card-body p-5">
+                    <div class="flex justify-between items-start">
+                        <div>
+                            <h2 class="card-title text-sm text-base-content/60 font-medium">Pengguna Belum Disetujui
+                            </h2>
+                            <div class="flex items-center gap-2 mt-2">
+                                <span class="text-2xl font-bold">{{ $stats['pending'] ?? 0 }}</span>
+                                <span class="text-xs text-warning">Status pending</span>
+                            </div>
+                        </div>
+                        <div class="p-2 bg-base-200 rounded-lg">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
+                                stroke="currentColor" class="w-6 h-6">
+                                <circle cx="12" cy="12" r="9" stroke-width="1.5" />
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
+                                    d="M12 7v5l3 3" />
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card bg-base-100 shadow-sm">
+                <div class="card-body p-5">
+                    <div class="flex justify-between items-start">
+                        <div>
+                            <h2 class="card-title text-sm text-base-content/60 font-medium">Pengguna Tidak Aktif</h2>
+                            <div class="flex items-center gap-2 mt-2">
+                                <span class="text-2xl font-bold">{{ $stats['inactive'] ?? 0 }}</span>
+                                <span class="text-xs text-error">Status inactive</span>
+                            </div>
+                        </div>
+                        <div class="p-2 bg-base-200 rounded-lg">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
+                                stroke="currentColor" class="w-6 h-6">
+                                <circle cx="12" cy="12" r="9" stroke-width="1.5" />
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
+                                    d="M9 9l6 6M15 9l-6 6" />
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
     <!-- Actions Toolbar -->
     <div class="flex flex-col sm:flex-row justify-between gap-4 mb-6">
         <div class="form-control">
-            <div class="input-group">
-                <div class="relative">
-                    <input type="text" placeholder="Search users..."
-                        class="input input-bordered rounded-md w-full max-w-xs pl-10 bg-base-100" />
+            <div class="flex flex-col sm:flex-row items-center gap-3">
+                <form method="GET" action="{{ route('users.index') }}" class="flex items-center gap-2">
+                    <div class="join">
+                        <span
+                            class="btn btn-disabled join-item text-base-content pointer-events-none rounded-left-md">Show</span>
+                        <select name="per_page" class="select join-item w-24 rounded-end-md"
+                            onchange="this.form.submit()">
+                            @php $pp = (int) request('per_page', 10); @endphp
+                            <option value="10" @selected($pp === 10)>10</option>
+                            <option value="20" @selected($pp === 20)>20</option>
+                            <option value="50" @selected($pp === 50)>50</option>
+                            <option value="100" @selected($pp === 100)>100</option>
+                        </select>
+                    </div>
+                    <input type="hidden" name="q" value="{{ request('q') }}">
+                    <input type="hidden" name="role" value="{{ request('role') }}">
+                    <input type="hidden" name="status" value="{{ request('status') }}">
+                </form>
+                <div class="relative w-full sm:w-auto">
+                    <input id="users-search-input" type="text" placeholder="Search users..."
+                        value="{{ request('q') }}"
+                        class="input input-bordered rounded-md w-full sm:max-w-xs pl-10 pr-10 bg-base-100" />
                     <span class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
                         <svg class="w-5 h-5 text-base-content/50" fill="none" stroke="currentColor"
                             viewBox="0 0 24 24">
@@ -28,11 +158,21 @@
                                 d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
                         </svg>
                     </span>
+                    <button type="button" id="users-search-clear"
+                        class="absolute inset-y-0 right-0 flex items-center pr-3 text-base-content/50">
+                        <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
+                                d="M6 18L18 6M6 6l12 12" />
+                        </svg>
+                    </button>
+                    <div id="users-search-suggestions"
+                        class="absolute mt-1 w-full bg-base-100 rounded-md shadow z-10 hidden">
+                    </div>
                 </div>
             </div>
         </div>
         <div class="flex gap-2">
-            <button class="btn btn-outline gap-2 rounded-md">
+            <button id="btn-filter" class="btn btn-outline gap-2 rounded-md">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                     stroke="currentColor" class="w-5 h-5">
                     <path stroke-linecap="round" stroke-linejoin="round"
@@ -40,15 +180,28 @@
                 </svg>
                 Filter
             </button>
-            <button class="btn btn-primary gap-2 rounded-md">
+            <a href="{{ route('users.create') }}" class="btn btn-primary gap-2 rounded-md">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                     stroke="currentColor" class="w-5 h-5">
                     <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
                 </svg>
                 Add User
-            </button>
+            </a>
         </div>
     </div>
+
+    @if (session('success'))
+        <div id="success-toast" class="toast toast-bottom toast-end z-50 shadow-2xl">
+            <div class="alert alert-primary border border-primary text-primary font-bold">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
+                        d="M9 12l2 2 4-4M12 22C6.477 22 2 17.523 2 12S6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z" />
+                </svg>
+                <span>{{ session('success') }}</span>
+            </div>
+        </div>
+    @endif
 
     <!-- Users Table Card -->
     <div class="card bg-base-100 shadow-sm">
@@ -72,255 +225,73 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <!-- Row 1 -->
-                        <tr>
-                            <th>
-                                <label>
-                                    <input type="checkbox" class="checkbox checkbox-sm" />
-                                </label>
-                            </th>
-                            <td>
-                                <div class="flex items-center gap-3">
-                                    <div class="avatar">
-                                        <div class="mask mask-squircle w-10 h-10">
-                                            <img src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp"
-                                                alt="Avatar" />
+                        @forelse($users as $user)
+                            <tr>
+                                <th>
+                                    <label>
+                                        <input type="checkbox" class="checkbox checkbox-sm" />
+                                    </label>
+                                </th>
+                                <td>
+                                    <div class="flex items-center gap-3">
+                                        <div class="avatar">
+                                            <div class="mask mask-squircle w-10 h-10">
+                                                @php $photoUrl = $user->photo ? asset('storage/' . $user->photo) : 'https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp'; @endphp
+                                                <img src="{{ $photoUrl }}" alt="Avatar" />
+                                            </div>
+                                        </div>
+                                        <div>
+                                            <div class="font-bold">{{ $user->name }}</div>
+                                            <div class="text-xs opacity-50">{{ $user->email }}</div>
                                         </div>
                                     </div>
-                                    <div>
-                                        <div class="font-bold">Emma Smith</div>
-                                        <div class="text-xs opacity-50">emma.smith@example.com</div>
+                                </td>
+                                <td>
+                                    <div
+                                        class="badge whitespace-nowrap {{ $user->hasRole('Administrator') ? 'badge-primary' : 'badge-ghost' }} badge-outline gap-1">
+                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                            stroke-width="1.5" stroke="currentColor" class="w-3 h-3">
+                                            <path stroke-linecap="round" stroke-linejoin="round"
+                                                d="M11.42 15.17L17.25 21A2.652 2.652 0 0021 17.25l-5.877-5.877M11.42 15.17l2.496-3.03c.317-.384.74-.626 1.208-.766M11.42 15.17l-4.655 5.653a2.548 2.548 0 11-3.586-3.586l6.837-5.63m5.108-.233c.55-.164 1.163-.188 1.743-.14a4.5 4.5 0 004.486-6.336l-3.276 3.277a3.004 3.004 0 01-2.25-2.25l3.276-3.276a4.5 4.5 0 00-6.336 4.486c.091 1.076-.071 2.264-.904 2.95l-.102.085m-1.745 1.437L5.909 7.5H4.5L2.25 3.75l1.5-1.5L7.5 4.5v1.409l4.26 4.26m-1.745 1.437l1.745-1.437m6.615 8.206L15.75 15.75M4.867 19.125h.008v.008h-.008v-.008z" />
+                                        </svg>
+                                        {{ $user->getRoleNames()->first() ?? 'No Role' }}
                                     </div>
-                                </div>
-                            </td>
-                            <td>
-                                <div class="badge badge-primary badge-outline gap-1">
-                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                                        stroke-width="1.5" stroke="currentColor" class="w-3 h-3">
-                                        <path stroke-linecap="round" stroke-linejoin="round"
-                                            d="M11.42 15.17L17.25 21A2.652 2.652 0 0021 17.25l-5.877-5.877M11.42 15.17l2.496-3.03c.317-.384.74-.626 1.208-.766M11.42 15.17l-4.655 5.653a2.548 2.548 0 11-3.586-3.586l6.837-5.63m5.108-.233c.55-.164 1.163-.188 1.743-.14a4.5 4.5 0 004.486-6.336l-3.276 3.277a3.004 3.004 0 01-2.25-2.25l3.276-3.276a4.5 4.5 0 00-6.336 4.486c.091 1.076-.071 2.264-.904 2.95l-.102.085m-1.745 1.437L5.909 7.5H4.5L2.25 3.75l1.5-1.5L7.5 4.5v1.409l4.26 4.26m-1.745 1.437l1.745-1.437m6.615 8.206L15.75 15.75M4.867 19.125h.008v.008h-.008v-.008z" />
-                                    </svg>
-                                    Administrator
-                                </div>
-                            </td>
-                            <td>
-                                <div class="badge badge-success gap-1 text-white">
-                                    <div class="w-1.5 h-1.5 rounded-full bg-white"></div>
-                                    Active
-                                </div>
-                            </td>
-                            <td class="text-sm">2 mins ago</td>
-                            <td class="text-sm">Oct 24, 2023</td>
-                            <td class="text-right">
-                                <button class="btn btn-ghost btn-xs btn-square">
-                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                                        stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
-                                        <path stroke-linecap="round" stroke-linejoin="round"
-                                            d="M6.75 12a.75.75 0 11-1.5 0 .75.75 0 011.5 0zM12.75 12a.75.75 0 11-1.5 0 .75.75 0 011.5 0zM18.75 12a.75.75 0 11-1.5 0 .75.75 0 011.5 0z" />
-                                    </svg>
-                                </button>
-                            </td>
-                        </tr>
-
-                        <!-- Row 2 -->
-                        <tr>
-                            <th>
-                                <label>
-                                    <input type="checkbox" class="checkbox checkbox-sm" />
-                                </label>
-                            </th>
-                            <td>
-                                <div class="flex items-center gap-3">
-                                    <div class="avatar">
-                                        <div class="mask mask-squircle w-10 h-10">
-                                            <img src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp"
-                                                alt="Avatar" />
-                                        </div>
+                                </td>
+                                <td>
+                                    <div
+                                        class="badge {{ $user->status === 'active' ? 'badge-success' : ($user->status === 'pending' ? 'badge-warning' : 'badge-error') }} gap-1 text-white">
+                                        <div class="w-1.5 h-1.5 rounded-full bg-white"></div>
+                                        {{ $user->status ? ucfirst($user->status) : 'Inactive' }}
                                     </div>
-                                    <div>
-                                        <div class="font-bold">Liam Johnson</div>
-                                        <div class="text-xs opacity-50">liam.j@example.com</div>
+                                </td>
+                                <td class="text-sm">{{ optional($user->updated_at)->diffForHumans() }}</td>
+                                <td class="text-sm">{{ optional($user->created_at)->format('M d, Y') }}</td>
+                                <td class="text-right">
+                                    <div class="dropdown dropdown-end">
+                                        <button class="btn btn-ghost btn-xs btn-square">
+                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none"
+                                                viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
+                                                class="w-5 h-5">
+                                                <path stroke-linecap="round" stroke-linejoin="round"
+                                                    d="M6.75 12a.75.75 0 11-1.5 0 .75.75 0 011.5 0zM12.75 12a.75.75 0 11-1.5 0 .75.75 0 011.5 0zM18.75 12a.75.75 0 11-1.5 0 .75.75 0 011.5 0z" />
+                                            </svg>
+                                        </button>
+                                        <ul tabindex="0"
+                                            class="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-36">
+                                            <li><a href="{{ route('users.edit', $user) }}">Edit</a></li>
+                                            <li><button type="button" class="text-error"
+                                                    data-delete-id="{{ $user->id }}"
+                                                    data-delete-name="{{ $user->name }}">Delete</button></li>
+                                        </ul>
                                     </div>
-                                </div>
-                            </td>
-                            <td>
-                                <div class="badge badge-ghost badge-outline gap-1">
-                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                                        stroke-width="1.5" stroke="currentColor" class="w-3 h-3">
-                                        <path stroke-linecap="round" stroke-linejoin="round"
-                                            d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z" />
-                                    </svg>
-                                    Editor
-                                </div>
-                            </td>
-                            <td>
-                                <div class="badge badge-warning gap-1 text-white">
-                                    <div class="w-1.5 h-1.5 rounded-full bg-white"></div>
-                                    Pending
-                                </div>
-                            </td>
-                            <td class="text-sm">5 hours ago</td>
-                            <td class="text-sm">Nov 12, 2023</td>
-                            <td class="text-right">
-                                <button class="btn btn-ghost btn-xs btn-square">
-                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                                        stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
-                                        <path stroke-linecap="round" stroke-linejoin="round"
-                                            d="M6.75 12a.75.75 0 11-1.5 0 .75.75 0 011.5 0zM12.75 12a.75.75 0 11-1.5 0 .75.75 0 011.5 0zM18.75 12a.75.75 0 11-1.5 0 .75.75 0 011.5 0z" />
-                                    </svg>
-                                </button>
-                            </td>
-                        </tr>
-
-                        <!-- Row 3 -->
-                        <tr>
-                            <th>
-                                <label>
-                                    <input type="checkbox" class="checkbox checkbox-sm" />
-                                </label>
-                            </th>
-                            <td>
-                                <div class="flex items-center gap-3">
-                                    <div class="avatar">
-                                        <div class="mask mask-squircle w-10 h-10">
-                                            <img src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp"
-                                                alt="Avatar" />
-                                        </div>
-                                    </div>
-                                    <div>
-                                        <div class="font-bold">Olivia Williams</div>
-                                        <div class="text-xs opacity-50">olivia.w@example.com</div>
-                                    </div>
-                                </div>
-                            </td>
-                            <td>
-                                <div class="badge badge-ghost badge-outline gap-1">
-                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                                        stroke-width="1.5" stroke="currentColor" class="w-3 h-3">
-                                        <path stroke-linecap="round" stroke-linejoin="round"
-                                            d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z" />
-                                    </svg>
-                                    Viewer
-                                </div>
-                            </td>
-                            <td>
-                                <div class="badge badge-error gap-1 text-white">
-                                    <div class="w-1.5 h-1.5 rounded-full bg-white"></div>
-                                    Inactive
-                                </div>
-                            </td>
-                            <td class="text-sm">3 days ago</td>
-                            <td class="text-sm">Dec 01, 2023</td>
-                            <td class="text-right">
-                                <button class="btn btn-ghost btn-xs btn-square">
-                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                                        stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
-                                        <path stroke-linecap="round" stroke-linejoin="round"
-                                            d="M6.75 12a.75.75 0 11-1.5 0 .75.75 0 011.5 0zM12.75 12a.75.75 0 11-1.5 0 .75.75 0 011.5 0zM18.75 12a.75.75 0 11-1.5 0 .75.75 0 011.5 0z" />
-                                    </svg>
-                                </button>
-                            </td>
-                        </tr>
-
-                        <!-- Row 4 -->
-                        <tr>
-                            <th>
-                                <label>
-                                    <input type="checkbox" class="checkbox checkbox-sm" />
-                                </label>
-                            </th>
-                            <td>
-                                <div class="flex items-center gap-3">
-                                    <div class="avatar">
-                                        <div class="mask mask-squircle w-10 h-10">
-                                            <img src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp"
-                                                alt="Avatar" />
-                                        </div>
-                                    </div>
-                                    <div>
-                                        <div class="font-bold">Noah Brown</div>
-                                        <div class="text-xs opacity-50">noah.b@example.com</div>
-                                    </div>
-                                </div>
-                            </td>
-                            <td>
-                                <div class="badge badge-primary badge-outline gap-1">
-                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                                        stroke-width="1.5" stroke="currentColor" class="w-3 h-3">
-                                        <path stroke-linecap="round" stroke-linejoin="round"
-                                            d="M11.42 15.17L17.25 21A2.652 2.652 0 0021 17.25l-5.877-5.877M11.42 15.17l2.496-3.03c.317-.384.74-.626 1.208-.766M11.42 15.17l-4.655 5.653a2.548 2.548 0 11-3.586-3.586l6.837-5.63m5.108-.233c.55-.164 1.163-.188 1.743-.14a4.5 4.5 0 004.486-6.336l-3.276 3.277a3.004 3.004 0 01-2.25-2.25l3.276-3.276a4.5 4.5 0 00-6.336 4.486c.091 1.076-.071 2.264-.904 2.95l-.102.085m-1.745 1.437L5.909 7.5H4.5L2.25 3.75l1.5-1.5L7.5 4.5v1.409l4.26 4.26m-1.745 1.437l1.745-1.437m6.615 8.206L15.75 15.75M4.867 19.125h.008v.008h-.008v-.008z" />
-                                    </svg>
-                                    Administrator
-                                </div>
-                            </td>
-                            <td>
-                                <div class="badge badge-success gap-1 text-white">
-                                    <div class="w-1.5 h-1.5 rounded-full bg-white"></div>
-                                    Active
-                                </div>
-                            </td>
-                            <td class="text-sm">1 day ago</td>
-                            <td class="text-sm">Jan 15, 2024</td>
-                            <td class="text-right">
-                                <button class="btn btn-ghost btn-xs btn-square">
-                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                                        stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
-                                        <path stroke-linecap="round" stroke-linejoin="round"
-                                            d="M6.75 12a.75.75 0 11-1.5 0 .75.75 0 011.5 0zM12.75 12a.75.75 0 11-1.5 0 .75.75 0 011.5 0zM18.75 12a.75.75 0 11-1.5 0 .75.75 0 011.5 0z" />
-                                    </svg>
-                                </button>
-                            </td>
-                        </tr>
-
-                        <!-- Row 5 -->
-                        <tr>
-                            <th>
-                                <label>
-                                    <input type="checkbox" class="checkbox checkbox-sm" />
-                                </label>
-                            </th>
-                            <td>
-                                <div class="flex items-center gap-3">
-                                    <div class="avatar">
-                                        <div class="mask mask-squircle w-10 h-10">
-                                            <img src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp"
-                                                alt="Avatar" />
-                                        </div>
-                                    </div>
-                                    <div>
-                                        <div class="font-bold">Sophia Miller</div>
-                                        <div class="text-xs opacity-50">sophia.m@example.com</div>
-                                    </div>
-                                </div>
-                            </td>
-                            <td>
-                                <div class="badge badge-ghost badge-outline gap-1">
-                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                                        stroke-width="1.5" stroke="currentColor" class="w-3 h-3">
-                                        <path stroke-linecap="round" stroke-linejoin="round"
-                                            d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z" />
-                                    </svg>
-                                    Editor
-                                </div>
-                            </td>
-                            <td>
-                                <div class="badge badge-success gap-1 text-white">
-                                    <div class="w-1.5 h-1.5 rounded-full bg-white"></div>
-                                    Active
-                                </div>
-                            </td>
-                            <td class="text-sm">Just now</td>
-                            <td class="text-sm">Feb 20, 2024</td>
-                            <td class="text-right">
-                                <button class="btn btn-ghost btn-xs btn-square">
-                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                                        stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
-                                        <path stroke-linecap="round" stroke-linejoin="round"
-                                            d="M6.75 12a.75.75 0 11-1.5 0 .75.75 0 011.5 0zM12.75 12a.75.75 0 11-1.5 0 .75.75 0 011.5 0zM18.75 12a.75.75 0 11-1.5 0 .75.75 0 011.5 0z" />
-                                    </svg>
-                                </button>
-                            </td>
-                        </tr>
+                                </td>
+                            </tr>
+                        @empty
+                            <tr>
+                                <td colspan="7" class="text-center text-sm text-base-content/60">Tidak ada data
+                                    pengguna</td>
+                            </tr>
+                        @endforelse
                     </tbody>
                     <!-- foot -->
                     <tfoot>
@@ -340,12 +311,224 @@
 
         <!-- Pagination -->
         <div class="card-actions justify-between items-center p-4 border-t border-base-200">
-            <div class="text-sm text-base-content/60">Showing 1 to 5 of 24 entries</div>
-            <div class="join">
-                <button class="join-item btn btn-sm">«</button>
-                <button class="join-item btn btn-sm">Page 1</button>
-                <button class="join-item btn btn-sm">»</button>
+            <div class="w-full">
+                {!! $users->appends(request()->query())->onEachSide(1)->links() !!}
             </div>
         </div>
     </div>
+    @if (session('error'))
+        <div id="error-toast" class="toast toast-bottom toast-end z-50 shadow-2xl">
+            <div class="alert alert-primary border border-error text-error font-bold">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
+                        d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2v6m0-6V4m0 0L3 10m7-6l7 6" />
+                </svg>
+                <span>{{ session('error') }}</span>
+            </div>
+        </div>
+    @endif
+    <dialog id="delete-modal" class="modal">
+        <div class="modal-box">
+            <h3 class="font-bold text-lg mb-2">Konfirmasi Hapus</h3>
+            <p class="text-sm text-base-content/70">Apakah Anda yakin ingin menghapus user <span id="delete-user-name"
+                    class="font-semibold"></span>?</p>
+            <div class="modal-action">
+                <button type="button" class="btn" data-close="delete-modal">Batal</button>
+                <form id="delete-user-form" method="POST" action="#">
+                    @csrf
+                    @method('DELETE')
+                    <button type="submit" class="btn btn-error">Hapus</button>
+                </form>
+            </div>
+        </div>
+        <form method="dialog" class="modal-backdrop">
+            <button>close</button>
+        </form>
+    </dialog>
+    <dialog id="filter-modal" class="modal">
+        <div class="modal-box">
+            <h3 class="font-bold text-lg mb-4">Filter Users</h3>
+            <form method="GET" action="{{ route('users.index') }}" class="space-y-4">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div>
+                        <label class="label mb-2">
+                            <span class="label-text">Role</span>
+                        </label>
+                        <select name="role" class="select select-bordered w-full">
+                            <option value="">Semua Role</option>
+                            @foreach ($roles ?? [] as $r)
+                                <option value="{{ $r }}" @selected(($role ?? '') === $r)>{{ $r }}
+                                </option>
+                            @endforeach
+                        </select>
+                    </div>
+                    <div>
+                        <label class="label mb-2">
+                            <span class="label-text">Status</span>
+                        </label>
+                        <select name="status" class="select select-bordered w-full">
+                            <option value="">Semua Status</option>
+                            @php $statuses = ['active' => 'Active', 'pending' => 'Pending', 'inactive' => 'Inactive']; @endphp
+                            @foreach ($statuses as $value => $label)
+                                <option value="{{ $value }}" @selected(($status ?? '') === $value)>{{ $label }}
+                                </option>
+                            @endforeach
+                        </select>
+                    </div>
+                </div>
+                <input type="hidden" name="q" value="{{ $q ?? '' }}">
+                <div class="modal-action">
+                    <button type="button" class="btn" data-close="filter-modal">Batal</button>
+                    <button type="submit" class="btn btn-primary">Terapkan</button>
+                </div>
+            </form>
+        </div>
+        <form method="dialog" class="modal-backdrop">
+            <button>close</button>
+        </form>
+    </dialog>
+
+    <!-- Add User modal removed in favor of full page create -->
+
+    <script>
+        (function() {
+            const input = document.getElementById('users-search-input');
+            const box = document.getElementById('users-search-suggestions');
+            const clearBtn = document.getElementById('users-search-clear');
+            let timer = null;
+
+            function hide() {
+                box.classList.add('hidden');
+                box.innerHTML = '';
+            }
+
+            function updateClear() {
+                const has = input.value.trim().length > 0;
+                if (has) clearBtn.classList.remove('hidden');
+                else clearBtn.classList.add('hidden');
+            }
+
+            function show(items) {
+                if (!items.length) {
+                    hide();
+                    return;
+                }
+                const html = '<ul class="menu menu-sm w-full">' + items.map(i =>
+                    '<li><button type="button" data-q="' + encodeURIComponent(i.query) + '">' +
+                    '<div class="flex flex-col text-left">' +
+                    '<span class="font-medium">' + (i.name ?? '') + '</span>' +
+                    '<span class="text-xs opacity-60">' + [i.email, i.role, i.status].filter(Boolean).join(' • ') +
+                    '</span>' +
+                    '</div></button></li>'
+                ).join('') + '</ul>';
+                box.innerHTML = html;
+                box.classList.remove('hidden');
+            }
+
+            function search(q) {
+                if (!q) {
+                    hide();
+                    updateClear();
+                    return;
+                }
+                fetch(`{{ route('users.suggest') }}?q=` + encodeURIComponent(q), {
+                        headers: {
+                            'Accept': 'application/json'
+                        }
+                    })
+                    .then(r => r.json())
+                    .then(d => {
+                        const items = (d.data || []).map(u => ({
+                            name: u.name,
+                            email: u.email,
+                            role: u.role,
+                            status: u.status,
+                            query: u.name || u.email || u.role || u.status || q
+                        }));
+                        show(items);
+                    })
+                    .catch(() => hide());
+            }
+            input.addEventListener('input', function() {
+                clearTimeout(timer);
+                const q = this.value.trim();
+                timer = setTimeout(() => search(q), 200);
+                updateClear();
+            });
+            input.addEventListener('keydown', function(e) {
+                if (e.key === 'Enter') {
+                    const q = this.value.trim();
+                    if (q) {
+                        const url = new URL(window.location.href);
+                        url.searchParams.set('q', q);
+                        window.location = url.toString();
+                    }
+                }
+            });
+            box.addEventListener('mousedown', function(e) {
+                const btn = e.target.closest('button[data-q]');
+                if (btn) {
+                    const q = decodeURIComponent(btn.getAttribute('data-q'));
+                    const url = new URL(window.location.href);
+                    url.searchParams.set('q', q);
+                    window.location = url.toString();
+                }
+            });
+            document.addEventListener('click', function(e) {
+                if (!box.contains(e.target) && e.target !== input) hide();
+            });
+            clearBtn.addEventListener('click', function() {
+                input.value = '';
+                hide();
+                updateClear();
+                const url = new URL(window.location.href);
+                url.searchParams.delete('q');
+                window.location = url.toString();
+            });
+            updateClear();
+        })();
+    </script>
+    <script>
+        (function() {
+            const filterBtn = document.getElementById('btn-filter');
+            const filterModal = document.getElementById('filter-modal');
+            const deleteModal = document.getElementById('delete-modal');
+            const deleteForm = document.getElementById('delete-user-form');
+            const deleteNameEl = document.getElementById('delete-user-name');
+            const successToast = document.getElementById('success-toast');
+            const errorToast = document.getElementById('error-toast');
+
+            function show(modal) {
+                if (modal?.showModal) modal.showModal();
+            }
+
+            function closeByAttr(attr) {
+                document.querySelectorAll('button[data-close]').forEach(btn => {
+                    btn.addEventListener('click', function() {
+                        const id = this.getAttribute('data-close');
+                        const dlg = document.getElementById(id);
+                        if (dlg && dlg.close) dlg.close();
+                    });
+                });
+            }
+            filterBtn.addEventListener('click', () => show(filterModal));
+            closeByAttr();
+            document.querySelectorAll('button[data-delete-id]').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const id = this.getAttribute('data-delete-id');
+                    const nm = this.getAttribute('data-delete-name') || '';
+                    deleteForm.setAttribute('action', `{{ url('/users') }}/${id}`);
+                    deleteNameEl.textContent = nm;
+                    show(deleteModal);
+                });
+            });
+            [successToast, errorToast].forEach(function(el) {
+                if (!el) return;
+                setTimeout(function() {
+                    el.remove();
+                }, 4000);
+            });
+        })();
+    </script>
 </x-layout>
