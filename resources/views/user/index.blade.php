@@ -267,7 +267,7 @@
                                 <td class="text-sm">{{ optional($user->updated_at)->diffForHumans() }}</td>
                                 <td class="text-sm">{{ optional($user->created_at)->format('M d, Y') }}</td>
                                 <td class="text-center">
-                                    <div class="dropdown dropdown-end">
+                                    <div class="dropdown dropdown-left dropdown-end">
                                         <button class="btn btn-ghost btn-xs btn-square rounded-full">
                                             <svg xmlns="http://www.w3.org/2000/svg" fill="none"
                                                 viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
@@ -277,7 +277,7 @@
                                             </svg>
                                         </button>
                                         <ul tabindex="0"
-                                            class="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-36">
+                                            class="dropdown-content menu p-2 shadow-md bg-base-100 glass rounded-box w-36">
                                             <li>
                                                 <a href="{{ route('users.edit', $user) }}">
                                                     Edit
@@ -301,18 +301,6 @@
                             </tr>
                         @endforelse
                     </tbody>
-                    <!-- foot -->
-                    <tfoot>
-                        <tr>
-                            <th></th>
-                            <th>User</th>
-                            <th>Role</th>
-                            <th>Status</th>
-                            <th>Last Active</th>
-                            <th>Joined Date</th>
-                            <th></th>
-                        </tr>
-                    </tfoot>
                 </table>
             </div>
         </div>
@@ -397,8 +385,6 @@
         </form>
     </dialog>
 
-    <!-- Add User modal removed in favor of full page create -->
-
     <script>
         (function() {
             const input = document.getElementById('users-search-input');
@@ -426,7 +412,8 @@
                         '<li><button type="button" data-q="' + encodeURIComponent(i.query) + '">' +
                         '<div class="flex flex-col text-left">' +
                         '<span class="font-medium">' + (i.name ?? '') + '</span>' +
-                        '<span class="text-xs opacity-60">' + [i.email, i.role, i.status].filter(Boolean).join(' • ') +
+                        '<span class="text-xs opacity-60">' + [i.email, i.role, i.status].filter(Boolean).join(
+                            ' • ') +
                         '</span>' +
                         '</div></button></li>'
                     ).join('') + '</ul>';

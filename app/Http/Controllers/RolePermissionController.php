@@ -14,7 +14,8 @@ class RolePermissionController extends Controller
 {
     public function index(Request $request)
     {
-        $perPage = (int) $request->input('per_page', 10);
+        $perPagePerm = (int) $request->input('per_page_perm', 4);
+        $perPageRole = (int) $request->input('per_page_role', 10);
         $q = trim((string) $request->input('q', ''));
         $permQuery = Permission::query();
         $roleQuery = Role::query();
@@ -25,25 +26,30 @@ class RolePermissionController extends Controller
         $permissions = $permQuery
             ->orderBy('group')
             ->orderBy('name')
-            ->paginate($perPage)
+            ->paginate($perPagePerm, ['*'], 'page_perm')
             ->appends($request->query());
 
         $roles = $roleQuery
             ->withCount(['permissions', 'users'])
             ->with(['permissions:id'])
             ->orderBy('name')
-            ->paginate($perPage)
+            ->paginate($perPageRole, ['*'], 'page_role')
             ->appends($request->query());
 
         $totalRoles = Role::count();
         $totalPermissions = Permission::count();
         $newPermissions = Permission::whereDate('created_at', Carbon::today())->count();
-        $userRoleCount = User::role('user')->count();
-        $superAdminRoleCount = User::role('super-admin')->count();
+
+        // Count users with specific roles, ensuring we check the correct guard if specified
+        // or just use the default guard if it's a common role.
+        // For stats, we usually care about the web guard users.
+        $userRoleCount = User::role('user', 'web')->count();
+        $superAdminRoleCount = User::role('super-admin', 'web')->count();
+
         $topRoleName = null;
         $topRoleUsers = 0;
         foreach (Role::all() as $r) {
-            $cnt = User::role($r->name)->count();
+            $cnt = User::role($r->name, $r->guard_name)->count();
             if ($cnt > $topRoleUsers) {
                 $topRoleUsers = $cnt;
                 $topRoleName = $r->name;
@@ -82,7 +88,7 @@ class RolePermissionController extends Controller
                     $query->where('group', $g);
                 })
                 ->orderBy('name');
-            $paginator = $query->paginate($perPage, ['*'], $pageName)->appends($request->query());
+            $paginator = $query->paginate($perPagePerm, ['*'], $pageName)->appends($request->query());
             $permissionGroups[] = [
                 'name' => $g,
                 'pageName' => $pageName,
@@ -110,7 +116,7 @@ class RolePermissionController extends Controller
         ]);
         $data['guard_name'] = $data['guard_name'] ?? 'web';
         Permission::create($data);
-        return redirect()->route('role_permission.index')->with('success', 'Permission created');
+        return redirect()->route('role_permission.index')->with('success', 'Permission baru berhasil dibuat');
     }
 
     public function updatePermission(Request $request, Permission $permission)
@@ -122,13 +128,13 @@ class RolePermissionController extends Controller
         ]);
         $data['guard_name'] = $data['guard_name'] ?? $permission->guard_name;
         $permission->update($data);
-        return redirect()->route('role_permission.index')->with('success', 'Permission updated');
+        return redirect()->route('role_permission.index')->with('success', 'Permission berhasil diperbarui');
     }
 
     public function destroyPermission(Permission $permission)
     {
         $permission->delete();
-        return redirect()->route('role_permission.index')->with('success', 'Permission deleted');
+        return redirect()->route('role_permission.index')->with('success', 'Permission berhasil dihapus');
     }
 
     public function storeRole(Request $request)
@@ -148,7 +154,7 @@ class RolePermissionController extends Controller
             $perms = Permission::whereIn('id', $data['permission_ids'])->get();
             $role->syncPermissions($perms);
         }
-        return redirect()->route('role_permission.index')->with('success', 'Role created');
+        return redirect()->route('role_permission.index')->with('success', 'Role baru berhasil dibuat');
     }
 
     public function updateRole(Request $request, Role $role)
@@ -166,34 +172,57 @@ class RolePermissionController extends Controller
         $role->save();
         $perms = Permission::whereIn('id', $data['permission_ids'] ?? [])->get();
         $role->syncPermissions($perms);
-        return redirect()->route('role_permission.index')->with('success', 'Role updated');
+        return redirect()->route('role_permission.index')->with('success', 'Role berhasil diperbarui');
     }
 
     public function destroyRole(Role $role)
     {
         $role->delete();
-        return redirect()->route('role_permission.index')->with('success', 'Role deleted');
+        return redirect()->route('role_permission.index')->with('success', 'Role berhasil dihapus');
     }
 
     public function suggestPermission(Request $request)
     {
         $q = trim((string) $request->input('q', ''));
         if ($q === '') {
-            return response()->json(['data' => []]);
+            return response()->json([
+                'roles' => [],
+                'permissions' => []
+            ]);
         }
-        $list = Permission::query()
+
+        $roles = Role::query()
+            ->where('name', 'like', "%{$q}%")
+            ->orderBy('name')
+            ->limit(5)
+            ->get(['id', 'name', 'guard_name'])
+            ->map(function ($r) {
+                return [
+                    'id' => $r->id,
+                    'name' => $r->name,
+                    'guard' => $r->guard_name,
+                    'type' => 'role'
+                ];
+            });
+
+        $permissions = Permission::query()
             ->where('name', 'like', "%{$q}%")
             ->orderBy('name')
             ->limit(8)
-            ->get(['id', 'name', 'group', 'guard_name']);
-        $data = $list->map(function ($p) {
-            return [
-                'id' => $p->id,
-                'name' => $p->name,
-                'group' => $p->group,
-                'guard' => $p->guard_name,
-            ];
-        });
-        return response()->json(['data' => $data]);
+            ->get(['id', 'name', 'group', 'guard_name'])
+            ->map(function ($p) {
+                return [
+                    'id' => $p->id,
+                    'name' => $p->name,
+                    'group' => $p->group,
+                    'guard' => $p->guard_name,
+                    'type' => 'permission'
+                ];
+            });
+
+        return response()->json([
+            'roles' => $roles,
+            'permissions' => $permissions
+        ]);
     }
 }

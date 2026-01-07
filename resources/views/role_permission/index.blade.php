@@ -13,6 +13,20 @@
         </div>
     </div>
 
+    {{-- Toast Success --}}
+    @if (session('success'))
+        <div id="success-toast" class="toast toast-bottom toast-end z-50 shadow-2xl">
+            <div class="alert alert-primary border border-primary text-primary font-bold">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
+                        d="M9 12l2 2 4-4M12 22C6.477 22 2 17.523 2 12S6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z" />
+                </svg>
+                <span>{{ session('success') }}</span>
+            </div>
+        </div>
+    @endif
+
     <div class="mb-6">
         <div class="rounded-xl bg-linear-to-r from-primary to-secondary text-primary-content p-5">
             <div class="flex flex-col gap-3 md:flex-row md:items-center md:justify-between">
@@ -86,7 +100,7 @@
                 <div class="card-body p-5">
                     <div class="flex justify-between items-start">
                         <div>
-                            <h2 class="card-title text-sm text-base-content/60 font-medium">User</h2>
+                            <h2 class="card-title text-sm text-base-content/60 font-medium">Role User</h2>
                             <div class="flex items-center gap-2 mt-2">
                                 <span class="text-2xl font-bold">{{ $stats['user_role_count'] ?? 0 }}</span>
                                 <span class="text-xs text-warning">Pengguna</span>
@@ -108,7 +122,7 @@
                 <div class="card-body p-5">
                     <div class="flex justify-between items-start">
                         <div>
-                            <h2 class="card-title text-sm text-base-content/60 font-medium">Super Admin</h2>
+                            <h2 class="card-title text-sm text-base-content/60 font-medium">Role Super Admin</h2>
                             <div class="flex items-center gap-2 mt-2">
                                 <span class="text-2xl font-bold">{{ $stats['superadmin_role_count'] ?? 0 }}</span>
                                 <span class="text-xs text-error">Pengguna</span>
@@ -133,17 +147,20 @@
                 <form method="GET" action="{{ route('role_permission.index') }}" class="flex items-center gap-2">
                     <div class="join">
                         <span
-                            class="btn btn-disabled join-item text-base-content pointer-events-none rounded-left-md">Show</span>
-                        <select name="per_page" class="select join-item w-24 rounded-end-md"
+                            class="btn btn-disabled join-item text-base-content pointer-events-none rounded-left-md">Show
+                            Roles</span>
+                        <select name="per_page_role" class="select join-item w-20 rounded-end-md"
                             onchange="this.form.submit()">
-                            @php $pp = (int) request('per_page', 10); @endphp
-                            <option value="10" @selected($pp === 10)>10</option>
-                            <option value="20" @selected($pp === 20)>20</option>
-                            <option value="50" @selected($pp === 50)>50</option>
-                            <option value="100" @selected($pp === 100)>100</option>
+                            @php $ppr = (int) request('per_page_role', 10); @endphp
+                            <option value="10" @selected($ppr === 10)>10</option>
+                            <option value="20" @selected($ppr === 20)>20</option>
+                            <option value="50" @selected($ppr === 50)>50</option>
                         </select>
                     </div>
                     <input type="hidden" name="q" value="{{ request('q') }}">
+                    <input type="hidden" name="per_page_perm" value="{{ request('per_page_perm', 4) }}">
+                    <input type="hidden" name="page_role" value="{{ request('page_role') }}">
+                    <input type="hidden" name="page_perm" value="{{ request('page_perm') }}">
                 </form>
                 <div class="relative w-full sm:w-auto">
                     <input id="rp-search-input" type="text" placeholder="Search..." value="{{ request('q') }}"
@@ -156,7 +173,7 @@
                         </svg>
                     </span>
                     <button type="button" id="rp-search-clear"
-                        class="absolute inset-y-0 right-0 flex items-center pr-3 text-base-content/50">
+                        class="absolute inset-y-0 right-0 pr-3 text-base-content/50 hidden">
                         <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
                                 d="M6 18L18 6M6 6l12 12" />
@@ -195,30 +212,30 @@
                 <table class="table table-zebra w-full">
                     <thead>
                         <tr class="bg-base-200/50">
-                            <th>#</th>
+                            <th class="text-center">#</th>
                             <th>Name</th>
                             <th>Guard</th>
                             <th>Created At</th>
-                            <th class="text-center">Permissions</th>
-                            <th class="text-center">Users</th>
+                            <th>Permissions</th>
+                            <th>Users</th>
                             <th class="text-center">Action</th>
                         </tr>
                     </thead>
                     <tbody>
                         @forelse($roles as $r)
                             <tr class="hover:bg-base-200/50">
-                                <td class="text-sm">{{ $roles->firstItem() + $loop->index }}</td>
+                                <td class="text-sm text-center">{{ $roles->firstItem() + $loop->index }}</td>
                                 <td class="text-sm">{{ $r->name }}</td>
                                 <td class="text-sm">{{ $r->guard_name }}</td>
                                 <td class="text-sm font-mono text-base-content/60">
                                     {{ $r->created_at->format('d-m-Y H:i:s') }}
                                 </td>
-                                <td class="text-sm text-center">
-                                    {{ $r->permissions_count }}
+                                <td class="text-sm">
+                                    <b>{{ $r->permissions_count }}</b> permission
                                 </td>
-                                <td class="text-sm text-center">{{ $r->users_count }}</td>
+                                <td class="text-sm"><b>{{ $r->users_count }}</b> pengguna</td>
                                 <td class="text-center">
-                                    <div class="dropdown dropdown-end">
+                                    <div class="dropdown dropdown-left dropdown-end">
                                         <button class="btn btn-ghost btn-xs btn-square rounded-full">
                                             <svg xmlns="http://www.w3.org/2000/svg" fill="none"
                                                 viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
@@ -228,7 +245,7 @@
                                             </svg>
                                         </button>
                                         <ul tabindex="0"
-                                            class="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-36">
+                                            class="dropdown-content menu p-2 shadow-md bg-base-100 rounded-box w-36">
                                             <li>
                                                 <button type="button" data-edit-role="{{ $r->id }}"
                                                     data-name="{{ $r->name }}"
@@ -250,7 +267,7 @@
                             </tr>
                         @empty
                             <tr>
-                                <td colspan="4" class="text-center text-sm text-base-content/60">Tidak ada role
+                                <td colspan="7" class="text-center text-sm text-base-content/60">Tidak ada role
                                 </td>
                             </tr>
                         @endforelse
@@ -264,8 +281,26 @@
     </div>
 
     <div class="mt-4">
-        <div class="pb-4 px-4">
+        <div class="pb-4 px-4 flex flex-col sm:flex-row justify-between items-center gap-4">
             <div class="text-sm text-base-content/60 font-medium">Permissions</div>
+            <form method="GET" action="{{ route('role_permission.index') }}" class="flex items-center gap-2">
+                <div class="join">
+                    <span
+                        class="btn btn-disabled btn-xs join-item text-base-content pointer-events-none rounded-left-md">Show
+                        Permissions</span>
+                    <select name="per_page_perm" class="select select-xs join-item w-16 rounded-end-md"
+                        onchange="this.form.submit()">
+                        @php $ppp = (int) request('per_page_perm', 4); @endphp
+                        <option value="4" @selected($ppp === 4)>4</option>
+                        <option value="8" @selected($ppp === 8)>8</option>
+                        <option value="12" @selected($ppp === 12)>12</option>
+                    </select>
+                </div>
+                <input type="hidden" name="q" value="{{ request('q') }}">
+                <input type="hidden" name="per_page_role" value="{{ request('per_page_role', 10) }}">
+                <input type="hidden" name="page_role" value="{{ request('page_role') }}">
+                <input type="hidden" name="page_perm" value="{{ request('page_perm') }}">
+            </form>
         </div>
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
             @foreach ($permissionGroups ?? [] as $grp)
@@ -290,7 +325,7 @@
                                             <td class="text-sm">{{ $p->name }}</td>
                                             <td class="text-sm">{{ $p->guard_name }}</td>
                                             <td class="text-right">
-                                                <div class="dropdown dropdown-end">
+                                                <div class="dropdown dropdown-left dropdown-end">
                                                     <button class="btn btn-ghost btn-xs btn-square rounded-full">
                                                         <svg xmlns="http://www.w3.org/2000/svg" fill="none"
                                                             viewBox="0 0 24 24" stroke-width="1.5"
@@ -300,7 +335,7 @@
                                                         </svg>
                                                     </button>
                                                     <ul tabindex="0"
-                                                        class="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-36">
+                                                        class="dropdown-content menu p-2 shadow-md bg-base-100 rounded-box w-36">
                                                         <li>
                                                             <button type="button"
                                                                 data-edit-permission="{{ $p->id }}"
@@ -344,6 +379,7 @@
             <h3 class="font-bold text-lg mb-4">Permission</h3>
             <form id="permission-form" method="POST" action="{{ route('permissions.store') }}">
                 @csrf
+                <input type="hidden" name="modal_type" value="permission">
                 <input type="hidden" name="_method" id="permission-method" value="POST">
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
 
@@ -353,6 +389,9 @@
                         </label>
                         <input type="text" name="name" id="permission-name"
                             class="input input-bordered w-full">
+                        @if ($errors->has('name') && old('modal_type') === 'permission')
+                            <span class="text-red-500 text-xs">{{ $errors->first('name') }}</span>
+                        @endif
                     </div>
 
                     <div class="form-control md:col-span-2 mb-2">
@@ -361,14 +400,22 @@
                         </label>
                         <input type="text" name="group" id="permission-group"
                             class="input input-bordered w-full">
+                        @if ($errors->has('group') && old('modal_type') === 'permission')
+                            <span class="text-red-500 text-xs">{{ $errors->first('group') }}</span>
+                        @endif
                     </div>
 
                     <div class="form-control md:col-span-2 mb-2">
                         <label class="label mb-2">
                             <span class="label-text">Guard Name</span>
                         </label>
-                        <input type="text" name="guard_name" id="permission-guard" value="web"
-                            class="input input-bordered w-full">
+                        <select name="guard_name" id="permission-guard" class="select select-bordered w-full">
+                            <option value="web" @selected(old('guard_name') === 'web')>web</option>
+                            <option value="api" @selected(old('guard_name') === 'api')>api</option>
+                        </select>
+                        @if ($errors->has('guard_name') && old('modal_type') === 'permission')
+                            <span class="text-red-500 text-xs">{{ $errors->first('guard_name') }}</span>
+                        @endif
                     </div>
 
                 </div>
@@ -386,16 +433,25 @@
             <h3 class="font-bold text-lg mb-4">Role</h3>
             <form id="role-form" method="POST" action="{{ route('roles.store') }}">
                 @csrf
+                <input type="hidden" name="modal_type" value="role">
                 <input type="hidden" name="_method" id="role-method" value="POST">
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
                     <div class="form-control mb-2">
                         <label class="label mb-2"><span class="label-text">Name</span></label>
                         <input type="text" name="name" id="role-name" class="input input-bordered">
+                        @if ($errors->has('name') && old('modal_type') === 'role')
+                            <span class="text-red-500 text-xs">{{ $errors->first('name') }}</span>
+                        @endif
                     </div>
                     <div class="form-control mb-2">
                         <label class="label mb-2"><span class="label-text">Guard Name</span></label>
-                        <input type="text" name="guard_name" id="role-guard" class="input input-bordered"
-                            value="web">
+                        <select name="guard_name" id="role-guard" class="select select-bordered w-full">
+                            <option value="web" @selected(old('guard_name') === 'web')>web</option>
+                            <option value="api" @selected(old('guard_name') === 'api')>api</option>
+                        </select>
+                        @if ($errors->has('guard_name') && old('modal_type') === 'role')
+                            <span class="text-red-500 text-xs">{{ $errors->first('guard_name') }}</span>
+                        @endif
                     </div>
                     <div class="form-control md:col-span-2">
                         <label class="label mb-2"><span class="label-text">Permissions</span></label>
@@ -445,160 +501,19 @@
     </dialog>
 
     <script>
-        document.getElementById('btn-add-permission')?.addEventListener('click', function() {
-            document.getElementById('permission-form').action = "{{ route('permissions.store') }}";
-            document.getElementById('permission-method').value = 'POST';
-            document.getElementById('permission-name').value = '';
-            document.getElementById('permission-group').value = '';
-            document.getElementById('permission-guard').value = 'web';
-            document.getElementById('permission-modal').showModal();
-        });
-        document.getElementById('btn-add-role')?.addEventListener('click', function() {
-            document.getElementById('role-form').action = "{{ route('roles.store') }}";
-            document.getElementById('role-method').value = 'POST';
-            document.getElementById('role-name').value = '';
-            document.getElementById('role-guard').value = 'web';
-            document.querySelectorAll('#role-form input[type=checkbox]').forEach(cb => cb.checked = false);
-            document.getElementById('role-modal').showModal();
-        });
-        document.querySelectorAll('button[data-edit-permission]')?.forEach(btn => {
-            btn.addEventListener('click', function() {
-                const id = this.dataset.editPermission;
-                document.getElementById('permission-form').action = "{{ url('/permissions') }}/" + id;
-                document.getElementById('permission-method').value = 'PUT';
-                document.getElementById('permission-name').value = this.dataset.name || '';
-                document.getElementById('permission-group').value = this.dataset.group || '';
-                document.getElementById('permission-guard').value = this.dataset.guard || 'web';
-                document.getElementById('permission-modal').showModal();
-            });
-        });
-        document.querySelectorAll('button[data-edit-role]')?.forEach(btn => {
-            btn.addEventListener('click', function() {
-                const id = this.dataset.editRole;
-                document.getElementById('role-form').action = "{{ url('/roles') }}/" + id;
-                document.getElementById('role-method').value = 'PUT';
-                document.getElementById('role-name').value = this.dataset.name || '';
-                document.getElementById('role-guard').value = this.dataset.guard || 'web';
-                document.querySelectorAll('#role-form input[type=checkbox]').forEach(cb => cb.checked =
-                    false);
-                const ids = (this.dataset.permissionIds || '').split(',').map(s => s.trim()).filter(
-                    Boolean);
-                if (ids.length) {
-                    const set = new Set(ids);
-                    document.querySelectorAll('#role-form input[type=checkbox][name="permission_ids[]"]')
-                        .forEach(cb => {
-                            if (set.has(cb.value)) cb.checked = true;
-                        });
-                }
-                document.getElementById('role-modal').showModal();
-            });
-        });
-        document.querySelectorAll('button[data-close]')?.forEach(btn => {
-            btn.addEventListener('click', function() {
-                const id = this.getAttribute('data-close');
-                document.getElementById(id)?.close();
-            });
-        });
-        document.querySelectorAll('.rp-delete-btn')?.forEach(btn => {
-            btn.addEventListener('click', function() {
-                const type = this.dataset.type;
-                const id = this.dataset.id;
-                const name = this.dataset.name || '';
-                const form = document.getElementById('rp-delete-form');
-                const modal = document.getElementById('rp-delete-modal');
-                document.getElementById('rp-delete-name').textContent = name;
-                if (type === 'permission') {
-                    form.action = "{{ url('/permissions') }}/" + id;
-                } else {
-                    form.action = "{{ url('/roles') }}/" + id;
-                }
-                modal.showModal();
-            });
-        });
-        document.getElementById('rp-search-input')?.addEventListener('keyup', function(e) {
-            if (e.key === 'Enter') {
-                const params = new URLSearchParams(window.location.search);
-                params.set('q', this.value);
-                window.location.href = "{{ route('role_permission.index') }}?" + params.toString();
+        window.RolePermissionConfig = {
+            routes: {
+                index: "{{ route('role_permission.index') }}",
+                permissionsStore: "{{ route('permissions.store') }}",
+                permissionsBaseUrl: "{{ url('/permissions') }}",
+                permissionsSuggest: "{{ route('permissions.suggest') }}",
+                rolesStore: "{{ route('roles.store') }}",
+                rolesBaseUrl: "{{ url('/roles') }}"
+            },
+            old: {
+                modalType: "{{ old('modal_type') }}"
             }
-        });
-        document.getElementById('rp-search-clear')?.addEventListener('click', function() {
-            const params = new URLSearchParams(window.location.search);
-            params.delete('q');
-            window.location.href = "{{ route('role_permission.index') }}?" + params.toString();
-        });
-        (function() {
-            const input = document.getElementById('rp-search-input');
-            const box = document.getElementById('rp-search-suggestions');
-            const clearBtn = document.getElementById('rp-search-clear');
-            let timer = null;
-
-            function hide() {
-                box.classList.add('hidden');
-                box.innerHTML = '';
-            }
-
-            function updateClear() {
-                const has = input.value.trim().length > 0;
-                if (has) clearBtn.classList.remove('hidden');
-                else clearBtn.classList.add('hidden');
-            }
-
-            function show(items) {
-                let html = '';
-                if (!items.length) {
-                    html = '<div class="p-3 text-sm text-base-content/60">Tidak ada data</div>';
-                } else {
-                    html = '<ul class="menu menu-sm w-full">' + items.map(i =>
-                        '<li><button type="button" data-q="' + encodeURIComponent(i.query) + '">' +
-                        '<div class="flex flex-col text-left">' +
-                        '<span class="font-medium">' + (i.name ?? '') + '</span>' +
-                        '<span class="text-xs opacity-60">' + [i.group, i.guard].filter(Boolean).join(' • ') +
-                        '</span>' +
-                        '</div></button></li>'
-                    ).join('') + '</ul>';
-                }
-                box.innerHTML = html;
-                box.classList.remove('hidden');
-            }
-
-            function search(q) {
-                if (!q) {
-                    hide();
-                    updateClear();
-                    return;
-                }
-                fetch(`{{ route('permissions.suggest') }}?q=` + encodeURIComponent(q), {
-                        headers: {
-                            'Accept': 'application/json'
-                        }
-                    })
-                    .then(r => r.json())
-                    .then(d => {
-                        const items = (d.data || []).map(p => ({
-                            name: p.name,
-                            group: p.group,
-                            guard: p.guard,
-                            query: p.name || q
-                        }));
-                        show(items);
-                    })
-                    .catch(() => show([]));
-            }
-            input.addEventListener('input', function() {
-                clearTimeout(timer);
-                const q = this.value.trim();
-                timer = setTimeout(() => search(q), 200);
-                updateClear();
-            });
-            box.addEventListener('mousedown', function(e) {
-                const btn = e.target.closest('button[data-q]');
-                if (!btn) return;
-                const q = decodeURIComponent(btn.getAttribute('data-q') || '');
-                const url = new URL(window.location.href);
-                url.searchParams.set('q', q);
-                window.location = url.toString();
-            });
-        })();
+        };
     </script>
+    <script src="{{ asset('js/role-permission.js') }}"></script>
 </x-layout>
