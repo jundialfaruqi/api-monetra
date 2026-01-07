@@ -6,17 +6,23 @@
         </div>
         <div class="text-sm breadcrumbs text-base-content/60">
             <ul>
-                <li><a>Monetra</a></li>
-                <li><a>Apps</a></li>
-                <li><span class="text-base-content">Role & Permission</span></li>
+                <li><a href="{{ route('dashboard.index') }}">Monetra</a></li>
+                <li>Settings</li>
+                <li>
+                    <a href="{{ route('role_permission.index') }}">
+                        <span class="text-base-content">Role &
+                            Permission
+                        </span>
+                    </a>
+                </li>
             </ul>
         </div>
     </div>
 
     {{-- Toast Success --}}
     @if (session('success'))
-        <div id="success-toast" class="toast toast-bottom toast-end z-50 shadow-2xl">
-            <div class="alert alert-primary border border-primary text-primary font-bold">
+        <div id="success-toast" class="toast toast-top toast-end z-50 shadow-2xl">
+            <div class="alert glass backdrop-blur-lg border border-primary text-primary font-bold">
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 24 24" fill="none"
                     stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
@@ -499,6 +505,39 @@
             </div>
         </div>
     </dialog>
+
+    <div class="fab fab-flower">
+        <!-- a focusable div with tabindex is necessary to work on all browsers. role="button" is necessary for accessibility -->
+        <div tabindex="0" role="button" class="btn btn-circle btn-lg btn-primary">
+            <svg aria-label="New" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="currentColor"
+                class="size-6">
+                <path
+                    d="M8.75 3.75a.75.75 0 0 0-1.5 0v3.5h-3.5a.75.75 0 0 0 0 1.5h3.5v3.5a.75.75 0 0 0 1.5 0v-3.5h3.5a.75.75 0 0 0 0-1.5h-3.5v-3.5Z" />
+            </svg>
+        </div>
+
+        <div class="fab-close">
+            <span class="btn btn-circle btn-lg btn-error">✕</span>
+        </div>
+
+        <!-- buttons that show up when FAB is open -->
+        <button type="button" class="tooltip btn btn-circle btn-lg btn-primary" id="fab-add-role"
+            data-tip="Add Role">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-6">
+                <path fill-rule="evenodd"
+                    d="M12 1.5a5.25 5.25 0 0 0-5.25 5.25v3a3 3 0 0 0-3 3v6.75a3 3 0 0 0 3 3h10.5a3 3 0 0 0 3-3v-6.75a3 3 0 0 0-3-3v-3c0-2.9-2.35-5.25-5.25-5.25Zm3.75 8.25v-3a3.75 3.75 0 1 0-7.5 0v3h7.5Z"
+                    clip-rule="evenodd" />
+            </svg>
+        </button>
+        <button type="button" class="tooltip btn btn-circle btn-lg btn-primary" id="fab-add-permission"
+            data-tip="Add Permission">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-6">
+                <path fill-rule="evenodd"
+                    d="M12.516 2.17a.75.75 0 0 0-1.032 0 11.209 11.209 0 0 1-7.877 3.08.75.75 0 0 0-.722.515A12.74 12.74 0 0 0 2.25 9.75c0 5.942 4.064 10.933 9.563 12.348a.749.749 0 0 0 .374 0c5.499-1.415 9.563-6.406 9.563-12.348 0-1.39-.223-2.73-.635-3.985a.75.75 0 0 0-.722-.516l-.143.001c-2.996 0-5.717-1.17-7.734-3.08Zm3.094 8.016a.75.75 0 1 0-1.22-.872l-3.236 4.53L9.53 12.22a.75.75 0 0 0-1.06 1.06l2.25 2.25a.75.75 0 0 0 1.14-.094l3.75-5.25Z"
+                    clip-rule="evenodd" />
+            </svg>
+        </button>
+    </div>
 
     <script>
         window.RolePermissionConfig = {

@@ -83,7 +83,7 @@
                     </a>
                 </li>
 
-                <li class="menu-title text-xs font-semibold opacity-50 uppercase mt-4 mb-1">Extras</li>
+                <li class="menu-title text-xs font-semibold opacity-50 uppercase mt-4 mb-1">Settings</li>
 
                 @role(['super-admin', 'admin'])
                     <li>

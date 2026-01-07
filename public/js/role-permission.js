@@ -6,23 +6,29 @@ document.addEventListener('DOMContentLoaded', function() {
     const config = window.RolePermissionConfig || {};
 
     // --- Modal Management ---
-    document.getElementById('btn-add-permission')?.addEventListener('click', function() {
+    const addPermHandler = function() {
         document.getElementById('permission-form').action = config.routes.permissionsStore;
         document.getElementById('permission-method').value = 'POST';
         document.getElementById('permission-name').value = '';
         document.getElementById('permission-group').value = '';
         document.getElementById('permission-guard').value = 'web';
         document.getElementById('permission-modal').showModal();
-    });
+    };
 
-    document.getElementById('btn-add-role')?.addEventListener('click', function() {
+    const addRoleHandler = function() {
         document.getElementById('role-form').action = config.routes.rolesStore;
         document.getElementById('role-method').value = 'POST';
         document.getElementById('role-name').value = '';
         document.getElementById('role-guard').value = 'web';
         document.querySelectorAll('#role-form input[type=checkbox]').forEach(cb => cb.checked = false);
         document.getElementById('role-modal').showModal();
-    });
+    };
+
+    document.getElementById('btn-add-permission')?.addEventListener('click', addPermHandler);
+    document.getElementById('fab-add-permission')?.addEventListener('click', addPermHandler);
+
+    document.getElementById('btn-add-role')?.addEventListener('click', addRoleHandler);
+    document.getElementById('fab-add-role')?.addEventListener('click', addRoleHandler);
 
     document.querySelectorAll('button[data-edit-permission]')?.forEach(btn => {
         btn.addEventListener('click', function() {
@@ -190,7 +196,7 @@ document.addEventListener('DOMContentLoaded', function() {
         setTimeout(function() {
             el.classList.add('opacity-0', 'transition-opacity', 'duration-500');
             setTimeout(() => el.remove(), 500);
-        }, 4000);
+        }, 8000);
     });
 
     // --- Validation Errors & Modal Auto-open ---

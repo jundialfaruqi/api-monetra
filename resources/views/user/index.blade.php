@@ -8,7 +8,7 @@
         <div class="text-sm breadcrumbs text-base-content/60">
             <ul>
                 <li><a>Monetra</a></li>
-                <li><a>Apps</a></li>
+                <li><a>Settings</a></li>
                 <li><span class="text-base-content">User Management</span></li>
             </ul>
         </div>
@@ -191,8 +191,8 @@
     </div>
 
     @if (session('success'))
-        <div id="success-toast" class="toast toast-bottom toast-end z-50 shadow-2xl">
-            <div class="alert alert-primary border border-primary text-primary font-bold">
+        <div id="success-toast" class="toast toast-top toast-end z-50 shadow-2xl">
+            <div class="alert glass backdrop-blur-lg border border-primary text-primary font-bold">
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 24 24" fill="none"
                     stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
@@ -522,8 +522,9 @@
             [successToast, errorToast].forEach(function(el) {
                 if (!el) return;
                 setTimeout(function() {
-                    el.remove();
-                }, 4000);
+                    el.classList.add('opacity-0', 'transition-opacity', 'duration-500');
+                    setTimeout(() => el.remove(), 500);
+                }, 8000);
             });
         })();
     </script>
