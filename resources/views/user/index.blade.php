@@ -221,7 +221,7 @@
                             <th>Status</th>
                             <th>Last Active</th>
                             <th>Joined Date</th>
-                            <th class="text-right">Actions</th>
+                            <th class="text-center">Actions</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -266,9 +266,9 @@
                                 </td>
                                 <td class="text-sm">{{ optional($user->updated_at)->diffForHumans() }}</td>
                                 <td class="text-sm">{{ optional($user->created_at)->format('M d, Y') }}</td>
-                                <td class="text-right">
+                                <td class="text-center">
                                     <div class="dropdown dropdown-end">
-                                        <button class="btn btn-ghost btn-xs btn-square">
+                                        <button class="btn btn-ghost btn-xs btn-square rounded-full">
                                             <svg xmlns="http://www.w3.org/2000/svg" fill="none"
                                                 viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
                                                 class="w-5 h-5">
@@ -278,10 +278,18 @@
                                         </button>
                                         <ul tabindex="0"
                                             class="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-36">
-                                            <li><a href="{{ route('users.edit', $user) }}">Edit</a></li>
-                                            <li><button type="button" class="text-error"
+                                            <li>
+                                                <a href="{{ route('users.edit', $user) }}">
+                                                    Edit
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <button type="button" class="text-error"
                                                     data-delete-id="{{ $user->id }}"
-                                                    data-delete-name="{{ $user->name }}">Delete</button></li>
+                                                    data-delete-name="{{ $user->name }}">
+                                                    Delete
+                                                </button>
+                                            </li>
                                         </ul>
                                     </div>
                                 </td>
@@ -410,18 +418,19 @@
             }
 
             function show(items) {
+                let html = '';
                 if (!items.length) {
-                    hide();
-                    return;
+                    html = '<div class="p-3 text-sm text-base-content/60">Tidak ada data</div>';
+                } else {
+                    html = '<ul class="menu menu-sm w-full">' + items.map(i =>
+                        '<li><button type="button" data-q="' + encodeURIComponent(i.query) + '">' +
+                        '<div class="flex flex-col text-left">' +
+                        '<span class="font-medium">' + (i.name ?? '') + '</span>' +
+                        '<span class="text-xs opacity-60">' + [i.email, i.role, i.status].filter(Boolean).join(' • ') +
+                        '</span>' +
+                        '</div></button></li>'
+                    ).join('') + '</ul>';
                 }
-                const html = '<ul class="menu menu-sm w-full">' + items.map(i =>
-                    '<li><button type="button" data-q="' + encodeURIComponent(i.query) + '">' +
-                    '<div class="flex flex-col text-left">' +
-                    '<span class="font-medium">' + (i.name ?? '') + '</span>' +
-                    '<span class="text-xs opacity-60">' + [i.email, i.role, i.status].filter(Boolean).join(' • ') +
-                    '</span>' +
-                    '</div></button></li>'
-                ).join('') + '</ul>';
                 box.innerHTML = html;
                 box.classList.remove('hidden');
             }
@@ -448,7 +457,7 @@
                         }));
                         show(items);
                     })
-                    .catch(() => hide());
+                    .catch(() => show([]));
             }
             input.addEventListener('input', function() {
                 clearTimeout(timer);
