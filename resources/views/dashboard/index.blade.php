@@ -1,4 +1,4 @@
-<x-layout>
+<x-layout title="Dashboard - Monetra">
     <!-- Page Title & Breadcrumbs -->
     <div class="flex flex-col md:flex-row md:items-center justify-between mb-6">
         <h1 class="text-xl font-bold">Business Overview</h1>

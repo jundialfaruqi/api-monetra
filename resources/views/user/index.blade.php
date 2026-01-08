@@ -1,4 +1,4 @@
-<x-layout>
+<x-layout title="User Management - Monetra">
     <!-- Page Title & Breadcrumbs -->
     <div class="flex flex-col md:flex-row md:items-center justify-between mb-6">
         <div>
@@ -7,9 +7,9 @@
         </div>
         <div class="text-sm breadcrumbs text-base-content/60">
             <ul>
-                <li><a>Monetra</a></li>
-                <li><a>Settings</a></li>
-                <li><span class="text-base-content">User Management</span></li>
+                <li><a href="{{ route('dashboard.index') }}">Monetra</a></li>
+                <li>Settings</li>
+                <li><a href="{{ route('users.index') }}"><span class="text-base-content">User Management</span></a></li>
             </ul>
         </div>
     </div>
@@ -191,11 +191,11 @@
     </div>
 
     @if (session('success'))
-        <div id="success-toast" class="toast toast-top toast-end z-50 shadow-2xl">
-            <div class="alert glass backdrop-blur-lg border border-primary text-primary font-bold">
+        <div id="success-toast" class="toast toast-top toast-end z-50 shadow-2xl rounded-xl">
+            <div class="alert glass backdrop-blur-lg border border-primary text-secondary font-bold">
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 24 24" fill="none"
                     stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5"
                         d="M9 12l2 2 4-4M12 22C6.477 22 2 17.523 2 12S6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z" />
                 </svg>
                 <span>{{ session('success') }}</span>

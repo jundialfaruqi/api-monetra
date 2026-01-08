@@ -1,4 +1,4 @@
-<x-layout>
+<x-layout title="Edit User - Monetra">
     <div class="flex flex-col md:flex-row md:items-center justify-between mb-6">
         <div>
             <h1 class="text-xl font-bold">Edit User</h1>
@@ -135,7 +135,7 @@
                 </div>
                 <div class="flex justify-end gap-2">
                     <a href="{{ route('users.index') }}" class="btn">Batal</a>
-                    <button type="submit" class="btn btn-primary">Simpan</button>
+                    <button type="submit" class="btn btn-secondary">Simpan</button>
                 </div>
             </form>
         </div>
