@@ -15,7 +15,7 @@
     </div>
 
     <div class="mb-6">
-        <div class="rounded-xl bg-linear-to-r from-primary to-secondary text-primary-content p-5">
+        <div class="card bg-linear-to-r from-secondary to-neutral text-primary-content p-5">
             <div class="flex flex-col gap-3 md:flex-row md:items-center md:justify-between">
                 <div>
                     <div class="text-lg font-bold">Data User</div>
@@ -150,7 +150,7 @@
                 <div class="relative w-full sm:w-auto">
                     <input id="users-search-input" type="text" placeholder="Search users..."
                         value="{{ request('q') }}"
-                        class="input input-bordered rounded-md w-full sm:max-w-xs pl-10 pr-10 bg-base-100" />
+                        class="input input-bordered w-full sm:max-w-xs pl-10 pr-10 bg-base-100" />
                     <span class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
                         <svg class="w-5 h-5 text-base-content/50" fill="none" stroke="currentColor"
                             viewBox="0 0 24 24">
@@ -172,7 +172,7 @@
             </div>
         </div>
         <div class="flex gap-2">
-            <button id="btn-filter" class="btn btn-outline gap-2 rounded-md">
+            <button id="btn-filter" class="btn btn-outline gap-2">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                     stroke="currentColor" class="w-5 h-5">
                     <path stroke-linecap="round" stroke-linejoin="round"
@@ -180,7 +180,7 @@
                 </svg>
                 Filter
             </button>
-            <a href="{{ route('users.create') }}" class="btn btn-primary gap-2 rounded-md">
+            <a href="{{ route('users.create') }}" class="btn btn-neutral gap-2">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                     stroke="currentColor" class="w-5 h-5">
                     <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
@@ -206,11 +206,11 @@
     <!-- Users Table Card -->
     <div class="card bg-base-100 shadow-sm">
         <div class="card-body p-0">
-            <div class="overflow-x-auto">
-                <table class="table table-zebra w-full">
+            <div class="card overflow-x-auto">
+                <table class="table w-full">
                     <!-- head -->
                     <thead>
-                        <tr class="bg-base-200/50">
+                        <tr class="text-neutral">
                             <th>
                                 <label>
                                     <input type="checkbox" class="checkbox checkbox-sm" />
@@ -379,7 +379,7 @@
                 <input type="hidden" name="q" value="{{ $q ?? '' }}">
                 <div class="modal-action">
                     <button type="button" class="btn" data-close="filter-modal">Batal</button>
-                    <button type="submit" class="btn btn-primary">Terapkan</button>
+                    <button type="submit" class="btn btn-secondary">Terapkan</button>
                 </div>
             </form>
         </div>

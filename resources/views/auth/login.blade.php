@@ -12,7 +12,7 @@
     <div class="w-full max-w-sm p-6">
         <!-- Logo -->
         <div class="flex justify-center mb-8">
-            <div class="flex items-center gap-2 text-primary font-bold text-3xl">
+            <div class="flex items-center gap-2 text-secondary font-bold text-3xl">
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-10 h-10">
                     <path fill-rule="evenodd"
                         d="M14.615 1.595a.75.75 0 01.359.852L12.982 9.75h7.268a.75.75 0 01.548 1.262l-10.5 11.25a.75.75 0 01-1.272-.71l1.992-7.302H3.75a.75.75 0 01-.548-1.262l10.5-11.25a.75.75 0 01.913-.143z"
@@ -24,9 +24,9 @@
 
         <div class="card bg-base-100 shadow-xl border border-base-200 rounded-2xl">
             <div class="card-body">
-                <div class="text-center mb-6">
+                <div class="text-center mb-4 border-base-300 border-b border-dashed">
                     <h2 class="text-2xl font-bold">Welcome Back</h2>
-                    <p class="text-base-content/60 text-sm mt-1">Enter your credentials to access your account</p>
+                    <p class="text-base-content/60 text-sm mt-1 mb-4">Enter your credentials to access your account</p>
                 </div>
 
                 @if ($errors->any())
@@ -85,7 +85,7 @@
                                 </svg>
                             </span>
                             <button type="button" id="password-toggle"
-                                class="absolute inset-y-0 right-0 flex items-center pr-3 text-base-content/60 hover:text-primary transition-colors">
+                                class="absolute inset-y-0 right-0 flex items-center pr-3 text-base-content/60 hover:text-secondary transition-colors">
                                 <!-- Eye Icon -->
                                 <svg id="eye-icon" xmlns="http://www.w3.org/2000/svg" fill="none"
                                     viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
@@ -106,7 +106,7 @@
                             <span class="text-error text-xs mt-1">{{ $message }}</span>
                         @enderror
                         <label class="label justify-end mt-2">
-                            <a href="#" class="label-text-alt link link-hover text-primary font-medium">
+                            <a href="#" class="label-text-alt link link-hover text-neutral font-medium">
                                 Forgot password?
                             </a>
                         </label>
@@ -115,7 +115,7 @@
                     <!-- Submit -->
                     <div class="form-control">
                         <button type="submit"
-                            class="btn btn-primary w-full text-white shadow-lg shadow-primary/30 rounded-lg gap-2">
+                            class="btn btn-secondary w-full text-white shadow-lg shadow-secondary/30 rounded-lg gap-2">
 
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                 stroke-width="1.5" stroke="currentColor" class="size-5">

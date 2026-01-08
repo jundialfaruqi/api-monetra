@@ -129,7 +129,7 @@
                 </div>
                 <div class="flex justify-end gap-2">
                     <a href="{{ route('users.index') }}" class="btn">Batal</a>
-                    <button type="submit" class="btn btn-primary">Simpan</button>
+                    <button type="submit" class="btn btn-secondary">Simpan</button>
                 </div>
             </form>
         </div>

@@ -34,7 +34,7 @@
     @endif
 
     <div class="mb-6">
-        <div class="rounded-xl bg-linear-to-r from-primary to-secondary text-primary-content p-5">
+        <div class="card bg-linear-to-r from-secondary to-neutral text-primary-content p-5">
             <div class="flex flex-col gap-3 md:flex-row md:items-center md:justify-between">
                 <div>
                     <div class="text-lg font-bold">Manajemen Akses</div>
@@ -170,7 +170,7 @@
                 </form>
                 <div class="relative w-full sm:w-auto">
                     <input id="rp-search-input" type="text" placeholder="Search..." value="{{ request('q') }}"
-                        class="input input-bordered rounded-md w-full sm:max-w-xs pl-10 pr-10 bg-base-100" />
+                        class="input input-bordered w-full sm:max-w-xs pl-10 pr-10 bg-base-100" />
                     <span class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
                         <svg class="w-5 h-5 text-base-content/50" fill="none" stroke="currentColor"
                             viewBox="0 0 24 24">
@@ -191,14 +191,14 @@
             </div>
         </div>
         <div class="flex gap-2">
-            <button type="button" id="btn-add-permission" class="btn btn-primary gap-2 rounded-md">
+            <button type="button" id="btn-add-permission" class="btn btn-base-300 gap-2">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                     stroke="currentColor" class="w-5 h-5">
                     <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
                 </svg>
                 Add Permission
             </button>
-            <button type="button" id="btn-add-role" class="btn btn-secondary gap-2 rounded-md">
+            <button type="button" id="btn-add-role" class="btn btn-neutral gap-2">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                     stroke="currentColor" class="w-5 h-5">
                     <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
@@ -217,7 +217,7 @@
             <div class="overflow-x-auto">
                 <table class="table table-zebra w-full">
                     <thead>
-                        <tr class="bg-base-200/50">
+                        <tr class="text-neutral">
                             <th class="text-center">#</th>
                             <th>Name</th>
                             <th>Guard</th>
@@ -323,7 +323,7 @@
                                 {{ $grp['name'] ?? 'Ungrouped' }}</div>
                         </div>
                         <div class="overflow-x-auto">
-                            <table class="table table-zebra w-full">
+                            <table class="table w-full">
                                 <thead>
                                     <tr class="bg-base-200/50">
                                         <th>Name</th>
@@ -434,7 +434,7 @@
 
                 <div class="modal-action">
                     <button type="button" class="btn" data-close="permission-modal">Batal</button>
-                    <button type="submit" class="btn btn-primary">Simpan</button>
+                    <button type="submit" class="btn btn-secondary">Simpan</button>
                 </div>
             </form>
         </div>
@@ -489,8 +489,8 @@
                                             @foreach ($groupList as $p)
                                                 <label class="flex items-center gap-2">
                                                     <input type="checkbox" name="permission_ids[]"
-                                                        value="{{ $p->id }}" class="checkbox checkbox-sm">
-                                                    <span class="text-sm">{{ $p->name }}</span>
+                                                        value="{{ $p->id }}" class="checkbox checkbox-xs">
+                                                    <span class="text-xs">{{ $p->name }}</span>
                                                 </label>
                                             @endforeach
                                         </div>

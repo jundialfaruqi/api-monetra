@@ -165,9 +165,9 @@
                 <div class="h-64 flex items-end justify-between gap-2 sm:gap-4 px-2">
                     <!-- Bars (Loop specific heights to mimic image) -->
                     @foreach ([30, 40, 35, 50, 45, 60, 75, 55, 65, 80] as $h)
-                        <div class="w-full flex flex-col gap-1 items-center">
-                            <div class="w-full bg-orange-400 rounded-t-sm" style="height: {{ $h * 0.4 }}%"></div>
-                            <div class="w-full bg-indigo-500 rounded-t-sm" style="height: {{ $h * 0.6 }}%"></div>
+                        <div class="w-full flex flex-col gap-1 items-center" style="height: {{ $h }}%">
+                            <div class="w-full bg-secondary rounded-t-sm" style="height: 40%"></div>
+                            <div class="w-full bg-base-300 rounded-t-sm" style="height: 60%"></div>
                         </div>
                     @endforeach
                 </div>
@@ -186,10 +186,10 @@
                 </div>
                 <div class="flex justify-center gap-4 mt-4 text-xs">
                     <div class="flex items-center gap-2">
-                        <span class="w-3 h-3 rounded-full bg-orange-400"></span> Orders
+                        <span class="w-3 h-3 rounded-full bg-secondary"></span> Orders
                     </div>
                     <div class="flex items-center gap-2">
-                        <span class="w-3 h-3 rounded-full bg-indigo-500"></span> Revenue
+                        <span class="w-3 h-3 rounded-full bg-primary"></span> Revenue
                     </div>
                 </div>
             </div>
@@ -227,12 +227,12 @@
                         <line x1="0" y1="75" x2="300" y2="75" stroke="#f0f0f0"
                             stroke-width="1" />
 
-                        <!-- Path 1 (Blue) -->
+                        <!-- Path 1 (Primary/Indigo) -->
                         <path d="M0,80 Q30,70 60,60 T120,40 T180,50 T240,30 T300,20" fill="none"
-                            stroke="currentColor" class="text-blue-500" stroke-width="3" />
-                        <!-- Path 2 (Orange - dashed) -->
+                            stroke="currentColor" class="text-primary" stroke-width="3" />
+                        <!-- Path 2 (Secondary/Orange - dashed) -->
                         <path d="M0,90 Q30,85 60,75 T120,60 T180,70 T240,50 T300,40" fill="none"
-                            stroke="currentColor" class="text-orange-400" stroke-width="3" stroke-dasharray="5,5" />
+                            stroke="currentColor" class="text-secondary" stroke-width="3" stroke-dasharray="5,5" />
                     </svg>
                 </div>
             </div>
@@ -247,7 +247,7 @@
                 <div class="p-6 flex justify-between items-center border-b border-base-200">
                     <h3 class="font-bold text-lg">Recent Orders</h3>
                     <div class="tabs tabs-boxed bg-transparent p-0">
-                        <a class="tab tab-active bg-primary text-primary-content rounded-btn btn-sm">All</a>
+                        <a class="tab tab-active bg-base-300 text-base-content rounded-btn btn-sm">All</a>
                         <a class="tab btn-sm">Pending</a>
                         <a class="tab btn-sm">Paid</a>
                     </div>

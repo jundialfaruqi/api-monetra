@@ -3,7 +3,7 @@
     <aside class="menu p-0 w-64 h-full bg-base-100 border-r border-base-300 flex flex-col overflow-hidden">
         <!-- Logo -->
         <div class="h-16 flex items-center px-6 border-b border-base-200 shrink-0">
-            <div class="flex items-center gap-2 text-primary font-bold text-2xl">
+            <div class="flex items-center gap-2 text-secondary font-bold text-2xl">
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-8 h-8">
                     <path fill-rule="evenodd"
                         d="M14.615 1.595a.75.75 0 01.359.852L12.982 9.75h7.268a.75.75 0 01.548 1.262l-10.5 11.25a.75.75 0 01-1.272-.71l1.992-7.302H3.75a.75.75 0 01-.548-1.262l10.5-11.25a.75.75 0 01.913-.143z"
@@ -162,7 +162,7 @@
                 </li>
 
                 <li class="mt-4">
-                    <a class="text-primary font-medium">
+                    <a class="text-secondary font-medium">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                             stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
                             <path stroke-linecap="round" stroke-linejoin="round"
