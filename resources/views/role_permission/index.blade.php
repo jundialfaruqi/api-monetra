@@ -230,7 +230,8 @@
                     <tbody>
                         @forelse($roles as $r)
                             <tr class="hover:bg-base-200/50">
-                                <td class="text-sm text-center">{{ $roles->firstItem() + $loop->index }}</td>
+                                <td class="text-center font-bold">{{ $roles->firstItem() + $loop->index }}
+                                </td>
                                 <td class="text-sm">
                                     <span class="badge badge-sm border-none text-white px-2 py-3"
                                         style="background-color: {{ $r->color ?? '#64748b' }}">

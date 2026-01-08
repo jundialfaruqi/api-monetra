@@ -211,11 +211,7 @@
                     <!-- head -->
                     <thead>
                         <tr class="text-neutral">
-                            <th>
-                                <label>
-                                    <input type="checkbox" class="checkbox checkbox-sm" />
-                                </label>
-                            </th>
+                            <th class="text-center">#</th>
                             <th>User</th>
                             <th>Role</th>
                             <th>Status</th>
@@ -227,11 +223,9 @@
                     <tbody>
                         @forelse($users as $user)
                             <tr>
-                                <th>
-                                    <label>
-                                        <input type="checkbox" class="checkbox checkbox-sm" />
-                                    </label>
-                                </th>
+                                <td class="text-center font-bold">
+                                    {{ ($users->currentPage() - 1) * $users->perPage() + $loop->iteration }}
+                                </td>
                                 <td>
                                     <div class="flex items-center gap-3">
                                         <div class="avatar">
