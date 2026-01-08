@@ -49,8 +49,8 @@
                         </label>
                         <div class="relative">
                             <input type="email" name="email" value="{{ old('email') }}"
-                                placeholder="name@example.com" class="input input-bordered w-full pl-10 rounded-lg h-11"
-                                required />
+                                placeholder="name@example.com"
+                                class="input input-bordered w-full pl-10 rounded-lg h-11" />
                             <span
                                 class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none text-base-content/60">
                                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"
@@ -74,7 +74,7 @@
                         </label>
                         <div class="relative">
                             <input type="password" name="password" id="password-input" placeholder="••••••••"
-                                class="input input-bordered w-full pl-10 pr-10 rounded-lg h-11" required />
+                                class="input input-bordered w-full pl-10 pr-10 rounded-lg h-11" />
                             <span
                                 class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none text-base-content/60">
                                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"

@@ -233,7 +233,7 @@
                                 <td class="text-center font-bold">{{ $roles->firstItem() + $loop->index }}
                                 </td>
                                 <td class="text-sm">
-                                    <span class="badge badge-sm border-none text-white px-2 py-3"
+                                    <span class="badge badge-sm border-none text-white px-2 py-3 whitespace-nowrap"
                                         style="background-color: {{ $r->color ?? '#64748b' }}">
                                         {{ $r->name }}
                                     </span>
@@ -242,10 +242,10 @@
                                 <td class="text-sm font-mono text-base-content/60">
                                     {{ $r->created_at->format('d-m-Y H:i:s') }}
                                 </td>
-                                <td class="text-sm">
+                                <td class="text-sm whitespace-nowrap">
                                     <b>{{ $r->permissions_count }}</b> permission
                                 </td>
-                                <td class="text-sm"><b>{{ $r->users_count }}</b> pengguna</td>
+                                <td class="text-sm whitespace-nowrap"><b>{{ $r->users_count }}</b> pengguna</td>
                                 <td class="text-center">
                                     <div class="dropdown dropdown-left dropdown-end">
                                         <button class="btn btn-ghost btn-xs btn-square rounded-full">

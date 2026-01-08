@@ -244,7 +244,7 @@
                                     @php
                                         $role = $user->roles->first();
                                     @endphp
-                                    <div class="badge badge-sm border-none text-white px-2 py-3 gap-1"
+                                    <div class="badge badge-sm border-none text-white px-2 py-3 gap-1 whitespace-nowrap"
                                         style="background-color: {{ $role->color ?? '#64748b' }}">
                                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                             stroke-width="1.5" stroke="currentColor" class="w-3 h-3">
