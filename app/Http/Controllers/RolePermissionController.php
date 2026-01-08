@@ -142,6 +142,7 @@ class RolePermissionController extends Controller
         $data = $request->validate([
             'name' => ['required', 'string', 'max:255', Rule::unique(Role::class, 'name')],
             'guard_name' => ['nullable', 'string', 'max:255'],
+            'color' => ['nullable', 'string', 'regex:/^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$/'],
             'permission_ids' => ['array'],
             'permission_ids.*' => ['integer'],
         ]);
@@ -149,6 +150,7 @@ class RolePermissionController extends Controller
         $role = Role::create([
             'name' => $data['name'],
             'guard_name' => $data['guard_name'],
+            'color' => $data['color'] ?? '#64748b',
         ]);
         if (!empty($data['permission_ids'])) {
             $perms = Permission::whereIn('id', $data['permission_ids'])->get();
@@ -162,10 +164,12 @@ class RolePermissionController extends Controller
         $data = $request->validate([
             'name' => ['required', 'string', 'max:255', Rule::unique(Role::class, 'name')->ignore($role->id)],
             'guard_name' => ['nullable', 'string', 'max:255'],
+            'color' => ['nullable', 'string', 'regex:/^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$/'],
             'permission_ids' => ['array'],
             'permission_ids.*' => ['integer'],
         ]);
         $role->name = $data['name'];
+        $role->color = $data['color'] ?? $role->color ?? '#64748b';
         if (!empty($data['guard_name'])) {
             $role->guard_name = $data['guard_name'];
         }
@@ -195,12 +199,13 @@ class RolePermissionController extends Controller
             ->where('name', 'like', "%{$q}%")
             ->orderBy('name')
             ->limit(5)
-            ->get(['id', 'name', 'guard_name'])
+            ->get(['id', 'name', 'guard_name', 'color'])
             ->map(function ($r) {
                 return [
                     'id' => $r->id,
                     'name' => $r->name,
                     'guard' => $r->guard_name,
+                    'color' => $r->color ?? '#64748b',
                     'type' => 'role'
                 ];
             });

@@ -247,14 +247,17 @@
                                     </div>
                                 </td>
                                 <td>
-                                    <div
-                                        class="badge whitespace-nowrap {{ $user->hasRole('Administrator') ? 'badge-primary' : 'badge-ghost' }} badge-outline gap-1">
+                                    @php
+                                        $role = $user->roles->first();
+                                    @endphp
+                                    <div class="badge badge-sm border-none text-white px-2 py-3 gap-1"
+                                        style="background-color: {{ $role->color ?? '#64748b' }}">
                                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                             stroke-width="1.5" stroke="currentColor" class="w-3 h-3">
                                             <path stroke-linecap="round" stroke-linejoin="round"
                                                 d="M11.42 15.17L17.25 21A2.652 2.652 0 0021 17.25l-5.877-5.877M11.42 15.17l2.496-3.03c.317-.384.74-.626 1.208-.766M11.42 15.17l-4.655 5.653a2.548 2.548 0 11-3.586-3.586l6.837-5.63m5.108-.233c.55-.164 1.163-.188 1.743-.14a4.5 4.5 0 004.486-6.336l-3.276 3.277a3.004 3.004 0 01-2.25-2.25l3.276-3.276a4.5 4.5 0 00-6.336 4.486c.091 1.076-.071 2.264-.904 2.95l-.102.085m-1.745 1.437L5.909 7.5H4.5L2.25 3.75l1.5-1.5L7.5 4.5v1.409l4.26 4.26m-1.745 1.437l1.745-1.437m6.615 8.206L15.75 15.75M4.867 19.125h.008v.008h-.008v-.008z" />
                                         </svg>
-                                        {{ $user->getRoleNames()->first() ?? 'No Role' }}
+                                        {{ $role->name ?? 'No Role' }}
                                     </div>
                                 </td>
                                 <td>
@@ -384,6 +387,30 @@
             <button>close</button>
         </form>
     </dialog>
+
+    <div class="fab fab-flower fab-bottom fab-end mb-12">
+        <!-- a focusable div with tabindex is necessary to work on all browsers. role="button" is necessary for accessibility -->
+        <div tabindex="0" role="button" class="btn btn-circle btn-lg btn-primary">
+            <svg aria-label="New" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="currentColor"
+                class="size-6">
+                <path
+                    d="M8.75 3.75a.75.75 0 0 0-1.5 0v3.5h-3.5a.75.75 0 0 0 0 1.5h3.5v3.5a.75.75 0 0 0 1.5 0v-3.5h3.5a.75.75 0 0 0 0-1.5h-3.5v-3.5Z" />
+            </svg>
+        </div>
+
+        <div class="fab-close">
+            <span class="btn btn-circle btn-lg btn-error">✕</span>
+        </div>
+
+        <!-- buttons that show up when FAB is open -->
+        <a href="{{ route('users.create') }}" class="tooltip btn btn-circle btn-lg btn-primary" id="fab-add-user"
+            data-tip="Add User">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-6">
+                <path
+                    d="M5.25 6.375a3.375 3.375 0 1 1 6.75 0 3.375 3.375 0 0 1-6.75 0ZM1.5 19.125a7.125 7.125 0 0 1 14.25 0v.003l-.001.119a.75.75 0 0 1-.363.63 13.067 13.067 0 0 1-6.761 1.873c-2.472 0-4.786-.684-6.76-1.873a.75.75 0 0 1-.364-.63l-.001-.122ZM18.75 7.5a.75.75 0 0 0-1.5 0v2.25H15a.75.75 0 0 0 0 1.5h2.25V13.5a.75.75 0 0 0 1.5 0v-2.25H21a.75.75 0 0 0 0-1.5h-2.25V7.5Z" />
+            </svg>
+        </a>
+    </div>
 
     <script>
         (function() {

@@ -20,6 +20,9 @@ document.addEventListener('DOMContentLoaded', function() {
         document.getElementById('role-method').value = 'POST';
         document.getElementById('role-name').value = '';
         document.getElementById('role-guard').value = 'web';
+        const color = '#64748b';
+        document.getElementById('role-color').value = color;
+        document.getElementById('role-color-text').value = color;
         document.querySelectorAll('#role-form input[type=checkbox]').forEach(cb => cb.checked = false);
         document.getElementById('role-modal').showModal();
     };
@@ -29,6 +32,20 @@ document.addEventListener('DOMContentLoaded', function() {
 
     document.getElementById('btn-add-role')?.addEventListener('click', addRoleHandler);
     document.getElementById('fab-add-role')?.addEventListener('click', addRoleHandler);
+
+    // --- Color Picker Sync ---
+    const roleColor = document.getElementById('role-color');
+    const roleColorText = document.getElementById('role-color-text');
+
+    roleColor?.addEventListener('input', function() {
+        roleColorText.value = this.value;
+    });
+
+    roleColorText?.addEventListener('input', function() {
+        if (/^#[0-9A-F]{6}$/i.test(this.value)) {
+            roleColor.value = this.value;
+        }
+    });
 
     document.querySelectorAll('button[data-edit-permission]')?.forEach(btn => {
         btn.addEventListener('click', function() {
@@ -49,6 +66,9 @@ document.addEventListener('DOMContentLoaded', function() {
             document.getElementById('role-method').value = 'PUT';
             document.getElementById('role-name').value = this.dataset.name || '';
             document.getElementById('role-guard').value = this.dataset.guard || 'web';
+            const color = this.dataset.color || '#64748b';
+            document.getElementById('role-color').value = color;
+            document.getElementById('role-color-text').value = color;
             document.querySelectorAll('#role-form input[type=checkbox]').forEach(cb => cb.checked = false);
             const ids = (this.dataset.permissionIds || '').split(',').map(s => s.trim()).filter(Boolean);
             if (ids.length) {
@@ -119,9 +139,12 @@ document.addEventListener('DOMContentLoaded', function() {
         } else {
             html += '<ul class="menu menu-sm w-full p-0">' + data.roles.map(r =>
                 '<li><button type="button" data-q="' + encodeURIComponent(r.name) + '">' +
-                '<div class="flex flex-col text-left">' +
+                '<div class="flex items-center gap-2 text-left">' +
+                '<div class="w-2 h-2 rounded-full" style="background-color: ' + (r.color || '#64748b') + '"></div>' +
+                '<div class="flex flex-col">' +
                 '<span class="font-medium">' + (r.name ?? '') + '</span>' +
                 '<span class="text-xs opacity-60">' + (r.guard ?? '') + '</span>' +
+                '</div>' +
                 '</div></button></li>'
             ).join('') + '</ul>';
         }

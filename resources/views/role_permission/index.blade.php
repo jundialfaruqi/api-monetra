@@ -231,7 +231,12 @@
                         @forelse($roles as $r)
                             <tr class="hover:bg-base-200/50">
                                 <td class="text-sm text-center">{{ $roles->firstItem() + $loop->index }}</td>
-                                <td class="text-sm">{{ $r->name }}</td>
+                                <td class="text-sm">
+                                    <span class="badge badge-sm border-none text-white px-2 py-3"
+                                        style="background-color: {{ $r->color ?? '#64748b' }}">
+                                        {{ $r->name }}
+                                    </span>
+                                </td>
                                 <td class="text-sm">{{ $r->guard_name }}</td>
                                 <td class="text-sm font-mono text-base-content/60">
                                     {{ $r->created_at->format('d-m-Y H:i:s') }}
@@ -256,6 +261,7 @@
                                                 <button type="button" data-edit-role="{{ $r->id }}"
                                                     data-name="{{ $r->name }}"
                                                     data-guard="{{ $r->guard_name }}"
+                                                    data-color="{{ $r->color ?? '#64748b' }}"
                                                     data-permission-ids="{{ $r->permissions->pluck('id')->implode(',') }}">
                                                     Edit
                                                 </button>
@@ -459,6 +465,18 @@
                             <span class="text-red-500 text-xs">{{ $errors->first('guard_name') }}</span>
                         @endif
                     </div>
+                    <div class="form-control mb-2 md:col-span-2">
+                        <label class="label mb-2"><span class="label-text">Color</span></label>
+                        <div class="flex gap-2 items-center">
+                            <input type="color" name="color" id="role-color"
+                                class="input input-bordered p-1 w-10 h-10 rounded-md" value="#64748b">
+                            <input type="text" id="role-color-text" class="input input-bordered flex-1"
+                                value="#64748b" placeholder="#64748b">
+                        </div>
+                        @if ($errors->has('color') && old('modal_type') === 'role')
+                            <span class="text-red-500 text-xs">{{ $errors->first('color') }}</span>
+                        @endif
+                    </div>
                     <div class="form-control md:col-span-2">
                         <label class="label mb-2"><span class="label-text">Permissions</span></label>
                         <div class="max-h-64 overflow-auto">
@@ -506,7 +524,7 @@
         </div>
     </dialog>
 
-    <div class="fab fab-flower">
+    <div class="fab fab-flower fab-bottom fab-end mb-12">
         <!-- a focusable div with tabindex is necessary to work on all browsers. role="button" is necessary for accessibility -->
         <div tabindex="0" role="button" class="btn btn-circle btn-lg btn-primary">
             <svg aria-label="New" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="currentColor"
